@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Cafe.Domain
+﻿namespace Cafe.Domain
 {
     public class Employee
     {
