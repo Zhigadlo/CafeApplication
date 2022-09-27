@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cafe.Application\Cafe.Application.csproj" />
+    <ProjectReference Include="..\Cafe.Persistence\Cafe.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>
