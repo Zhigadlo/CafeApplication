@@ -1,0 +1,10 @@
+﻿namespace Cafe.Domain
+{
+    public class Provider
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = null!;
+
+        public virtual ICollection<IngridientsWarehouse> IngridientsWarehouses { get; } = new List<IngridientsWarehouse>();
+    }
+}
