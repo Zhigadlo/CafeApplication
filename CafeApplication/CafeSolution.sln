@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cafe.Application", "Cafe.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cafe.Persistence", "Cafe.Persistence\Cafe.Persistence.csproj", "{1C7C15B9-6893-4FFB-A794-9C99E387B944}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cafe.Web", "Cafe.Web\Cafe.Web.csproj", "{12510116-E918-4DBD-BC96-B647EC2DAB01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cafe.Web", "Cafe.Web\Cafe.Web.csproj", "{12510116-E918-4DBD-BC96-B647EC2DAB01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

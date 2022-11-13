@@ -1,10 +1,8 @@
 ﻿using Cafe.Domain;
-using Cafe.Persistence;
 using Cafe.Web.Models;
 using Cafe.Web.Models.DishViewModels;
 using Cafe.Web.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Web.Controllers
 {

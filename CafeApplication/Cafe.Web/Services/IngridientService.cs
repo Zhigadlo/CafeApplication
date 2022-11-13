@@ -17,10 +17,10 @@ namespace Cafe.Web.Services
         public async Task<Ingridient> GetIngridientById(int id)
         {
             Ingridient? ingridient = null;
-            if(!_cache.TryGetValue(id, out ingridient))
+            if (!_cache.TryGetValue(id, out ingridient))
             {
                 ingridient = await _mediator.Send(new GetIngridientByIdCommand(id));
-                if(ingridient != null)
+                if (ingridient != null)
                 {
                     _cache.Set(id, ingridient);
                 }
@@ -44,7 +44,7 @@ namespace Cafe.Web.Services
         {
             var command = new UpdateIngridientCommand(id, name);
             Ingridient ingridient = await _mediator.Send(command);
-            _cache.Set(id, ingridient); 
+            _cache.Set(id, ingridient);
         }
     }
 }

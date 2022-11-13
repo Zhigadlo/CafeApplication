@@ -1,0 +1,36 @@
+﻿@using Cafe.Web.Models.EmployeeViewModels
+@model EmployeeUpdateViewModel
+@{
+    ViewData["Title"] = "Employee update";
+}
+@using (Html.BeginForm("UpdateView", "Employees", FormMethod.Post))
+{
+    <h3>New employee adding</h3>
+    <p>
+        <label>First name</label><br />
+        <input type="text" name="FirstName" value="@Model.Employee.FirstName" required />
+    </p>
+    <p>
+        <label>Last name</label><br />
+        <input type="text" name="LastName" value="@Model.Employee.LastName" required />
+    </p>
+    <p>
+        <label>Middle name</label><br />
+        <input type="text" name="MiddleName" value="@Model.Employee.MiddleName" required />
+    </p>
+    <p>
+        <label>Age</label><br />
+        <input type="number" name="Age" value=@Model.Employee.Age required />
+    </p>
+    <p>
+        <label>Education</label><br />
+        <input type="text" name="Education" value="@Model.Employee.Education" required />
+    </p>
+    <p>
+        <label>Profession</label><br />
+        @Html.DropDownList("profession", new SelectList(Model.Professions.Select(x=>x.Name), Model.Employee.Profession.Name))
+    </p>
+    <p>
+        <input type="submit" value="Update" />
+    </p>
+}

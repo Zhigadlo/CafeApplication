@@ -1,5 +1,7 @@
+using Cafe.Application.Interfaces;
 using Cafe.Persistence;
-using Cafe.Web.Data;
+using Cafe.Web.Services;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +15,16 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<CafeContext>();
+
+builder.Services.AddTransient<ICafeDbContext, CafeContext>();
+builder.Services.AddTransient<IngridientService>();
+builder.Services.AddTransient<DishService>();
+builder.Services.AddTransient<EmployeeService>();
+builder.Services.AddMediatR(typeof(ICafeDbContext).Assembly);
+builder.Services.AddResponseCaching();
 builder.Services.AddControllersWithViews();
+
+
 
 var app = builder.Build();
 

@@ -10,7 +10,7 @@ namespace Cafe.Web.Services
     public class DishService : BaseService
     {
         public DishService(IMediator mediator, IMemoryCache cache) : base(mediator, cache) { }
-    
+
         public async Task<IEnumerable<Dish>> GetAllDishes()
         {
             return await _mediator.Send(new GetAllDishesCommand());
@@ -33,7 +33,7 @@ namespace Cafe.Web.Services
         {
             return await _mediator.Send(new DeleteDishCommand(id));
         }
-        
+
         public async Task<Dish> Update(int id, string name, int cost, int cookingTime, int[] ingridientIds, int[] weights)
         {
             return await _mediator.Send(new UpdateDishCommand(id, name, cost, cookingTime, ingridientIds, weights));
