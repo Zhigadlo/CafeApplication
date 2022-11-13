@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Dish list";
+}
+@using Cafe.Domain
+@using Cafe.Web.Models.DishViewModels
+@model DishIndexViewModel
+<div>
+    <h2>@Html.ActionLink("add new dish", "CreateView", "Dishes")</h2>
+    <form method="get">
+        <label>Name: </label>
+        <input name="name" value="@Model.FilterViewModel.SelectedName" />
+        <input type="submit" value="Filter" class="btn btn-outline-dark" />
+    </form>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Name", "Index", "Dishes", new { name=Model.FilterViewModel.SelectedName,
+                sortOrder=Model.SortViewModel.NameState})
+            </th>
+            <th>
+                @Html.ActionLink("Cost", "Index", "Dishes", new { name=Model.FilterViewModel.SelectedName,
+                sortOrder=Model.SortViewModel.CostState})
+            </th>
+            <th>
+                @Html.ActionLink("Cooking time(minutes)", "Index", "Dishes", new { name=Model.FilterViewModel.SelectedName,
+                sortOrder=Model.SortViewModel.CookingTimeState})
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Cost</td>
+                <td>@item.CookingTime</td>
+                <td>@Html.ActionLink("details", "Description", "Dishes", new { id=item.Id })</td>
+                <td>@Html.ActionLink("change", "Update", "Dishes", new { id=item.Id })</td>
+                <td>@Html.ActionLink("delete", "Delete", "Dishes", new { id=item.Id })</td>
+            </tr>
+        }
+    </table>
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-outline-dark">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Back
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-outline-dark">
+            Forward
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+</div>
+Footer
+© 2022 GitHub, Inc.

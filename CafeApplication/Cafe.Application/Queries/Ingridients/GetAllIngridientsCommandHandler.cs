@@ -4,14 +4,9 @@ using MediatR;
 
 namespace Cafe.Application.Queries.Ingridients
 {
-    public class GetAllIngridientsCommandHandler : IRequestHandler<GetAllIngridientsCommand, IEnumerable<Ingridient>>
+    public class GetAllIngridientsCommandHandler : CafeContextHandler, IRequestHandler<GetAllIngridientsCommand, IEnumerable<Ingridient>>
     {
-        private readonly ICafeDbContext _context;
-
-        public GetAllIngridientsCommandHandler(ICafeDbContext context)
-        {
-            _context = context;
-        }
+        public GetAllIngridientsCommandHandler(ICafeDbContext context) : base(context) { }
 
         public Task<IEnumerable<Ingridient>> Handle(GetAllIngridientsCommand request, CancellationToken cancellationToken)
         {

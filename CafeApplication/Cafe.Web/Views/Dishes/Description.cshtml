@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Dish description";
+}
+@using Cafe.Domain
+@model Dish
+
+<div>
+    <h3>Dish description</h3>
+    <p>
+        <label>Name: @Model.Name</label><br />
+    </p>
+    <p>
+        <label>Cost: @Model.Cost</label><br />
+    </p>
+    <p>
+        <label>CookingTime: @Model.CookingTime</label><br />
+    </p>
+    <p>
+        <label>Ingridients:</label><br />
+        @foreach (var ingridientDish in Model.IngridientsDishes)
+        {
+            <label>@ingridientDish.Ingridient.Name - @ingridientDish.IngridientWeight g</label>
+            <br />
+        }
+    </p>
+</div>

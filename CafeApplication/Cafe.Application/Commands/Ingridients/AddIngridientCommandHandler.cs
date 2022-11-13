@@ -4,14 +4,10 @@ using MediatR;
 
 namespace Cafe.Application.Commands.Ingridients
 {
-    public class AddIngridientCommandHandler : IRequestHandler<AddIngridientCommand, Ingridient>
+    public class AddIngridientCommandHandler : CafeContextHandler, IRequestHandler<AddIngridientCommand, Ingridient>
     {
-        private ICafeDbContext _context;
-
-        public AddIngridientCommandHandler(ICafeDbContext context)
-        {
-            _context = context;
-        }
+        public AddIngridientCommandHandler(ICafeDbContext context) : base(context) { } 
+        
         public async Task<Ingridient> Handle(AddIngridientCommand command, CancellationToken cancellationToken)
         {
             Ingridient ingridient = new Ingridient { Name = command.Name };

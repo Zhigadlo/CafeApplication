@@ -4,13 +4,9 @@ using MediatR;
 
 namespace Cafe.Application.Commands.Ingridients
 {
-    public class DeleteIngridientCommandHandler : IRequestHandler<DeleteIngridientCommand, Ingridient>
+    public class DeleteIngridientCommandHandler : CafeContextHandler, IRequestHandler<DeleteIngridientCommand, Ingridient>
     {
-        private ICafeDbContext _context;
-        public DeleteIngridientCommandHandler(ICafeDbContext context)
-        {
-            _context = context;
-        }
+        public DeleteIngridientCommandHandler(ICafeDbContext context) : base(context) { }
 
         public async Task<Ingridient> Handle(DeleteIngridientCommand command, CancellationToken cancellationToken)
         {

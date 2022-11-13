@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Dish create";
+}
+@using Cafe.Domain
+@model IEnumerable<Ingridient>
+@using (Html.BeginForm("Create", "Dishes"))
+{
+    <h3>New dish adding</h3>
+    <p>
+        <label>Name</label><br />
+        <input type="text" name="name" required />
+    </p>
+    <p>
+        <label>Cost</label><br />
+        <input type="number" name="cost" required />
+    </p>
+    <p>
+        <label>CookingTime</label><br />
+        <input type="number" name="cookingTime" required />
+    </p>
+    <p>
+        <label>Ingridients</label><br />
+        @foreach (var ingridient in Model)
+        {
+            <input type="checkbox" id="@ingridient.Name" name="ingridientIds" value="@ingridient.Id" />
+            <label for="@ingridient.Name">@ingridient.Name &nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="number" name="weights" />
+
+            <label> g</label>
+            <br />
+        }
+    </p>
+    <p>
+        <input type="submit" value="Create" />
+    </p>
+}
