@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Ingridient list";
+}
+@using Cafe.Domain
+@using Cafe.Web.Models.IngridientViewModels
+@model IngridientIndexViewModel
+<div>
+    <h2>@Html.ActionLink("add new ingridient", "CreateView", "Ingridients")</h2>
+
+    <form method="get">
+        <label>Name: </label>
+        <input name="name" value="@Model.FilterViewModel.SelectedName" />
+
+        <label>Ingridient: </label>
+        <select name="ingridient" asp-items="Model.FilterViewModel.Ingridients"></select>
+
+        <input type="submit" value="Filter" class="btn btn-outline-dark" />
+    </form>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Name", "Index", "Ingridients", new {
+                sortOrder = Model.SortViewModel.NameSort,
+                name = Model.FilterViewModel.SelectedName,
+                ingridient = Model.FilterViewModel.SelectedIngridient
+                })
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@Html.ActionLink("change", "Update", "Ingridients", new { id=item.Id })</td>
+                <td>@Html.ActionLink("delete", "Delete", "Ingridients", new { id=item.Id })</td>
+            </tr>
+        }
+    </table>
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+       asp-route-company="@(Model.FilterViewModel.SelectedIngridient)"
+       asp-route-sortorder="@(Model.SortViewModel.Current)"
+       class="btn btn-outline-dark">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Back
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+       asp-route-company="@(Model.FilterViewModel.SelectedIngridient)"
+       asp-route-sortorder="@(Model.SortViewModel.Current)"
+       class="btn btn-outline-dark">
+            Forward
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+</div>
+Footer
+© 2022 GitHub, Inc.

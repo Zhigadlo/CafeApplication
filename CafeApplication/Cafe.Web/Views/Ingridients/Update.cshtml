@@ -1,0 +1,16 @@
+﻿@using Cafe.Domain
+@model Ingridient
+@{
+    ViewData["Title"] = "Ingridient update";
+}
+@using (Html.BeginForm("UpdateView", "Ingridients", FormMethod.Post))
+{
+    <h3>Ingridient update</h3>
+    <p>
+        <label>Name</label><br />
+        <input type="text" name="name" value="@Model.Name" required/>
+    </p>
+    <p>
+        <input type="submit" value="Update">
+    </p>
+}
