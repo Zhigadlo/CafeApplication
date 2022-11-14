@@ -1,0 +1,46 @@
+﻿@using Cafe.Domain;
+@using Cafe.Web.Models.DishViewModels
+@model DishUpdateViewModel
+@{
+    ViewData["Title"] = "Dish update";
+}
+@using (Html.BeginForm("UpdateView", "Dishes", FormMethod.Post))
+{
+    <h3>Dish updating</h3>
+    <p>
+        <label>Name</label><br />
+        <input type="text" name="name" value="@Model.Dish.Name" required />
+    </p>
+    <p>
+        <label>Cost</label><br />
+        <input type="number" name="cost" value="@Model.Dish.Cost" required />
+    </p>
+    <p>
+        <label>CookingTime</label><br />
+        <input type="number" name="cookingTime" value="@Model.Dish.CookingTime" required />
+    </p>
+    <p>
+        <label>Ingridients</label><br />
+        @foreach (var ingridient in Model.Ingridients)
+        {
+            if (Model.IngridientsDishes.FirstOrDefault(x => x.Ingridient.Id == ingridient.Id) == null)
+            {
+                <input type="checkbox" id="@ingridient.Name" name="ingridientIds" value="@ingridient.Id" />
+                <label for="@ingridient.Name">@ingridient.Name &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="number" name="weights" />
+            }
+            else
+            {
+                <input type="checkbox" id="@ingridient.Name" name="ingridientIds" value="@ingridient.Id" checked />
+                <label for="@ingridient.Name">@ingridient.Name &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="number" name="weights" value="@Model.IngridientsDishes.First(x => x.IngridientId == ingridient.Id).IngridientWeight" />
+            }
+            <label> g</label>
+
+            <br />
+        }
+    </p>
+    <p>
+        <input type="submit" value="Update" />
+    </p>
+}

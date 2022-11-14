@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Order create";
+}
+@using Cafe.Web.Models.OrderViewModels;
+@model CreateOrderViewModel;
+@using (Html.BeginForm("Create", "Orders"))
+{
+    <h3>New order adding</h3>
+    <p>
+        <label>Customer name</label><br />
+        <input type="text" name="customerName" required />
+    </p>
+    <p>
+        <label>Order date</label><br />
+        <input type="datetime-local" name="date" required />
+    </p>
+    <p>
+        <label>Customer phone number</label><br />
+        <input type="text" name="phoneNumber" required />
+    </p>
+    <p>
+        <label>Payment method</label>
+        <select name="paymentMethod">
+            <option value="0" selected>cash</option>
+            <option value="1">card</option>
+        </select>
+    </p>
+    <p>
+        <label>Employee</label>
+        <select name="employee" asp-items="@Model.Employees"></select>
+    </p>
+    <p>
+        <label>Dishes</label><br/>
+
+        @foreach (var dish in Model.Dishes)
+        {
+            <input type="checkbox" id="@dish.Name" name="dishIds" value="@dish.Id" />
+            <label for="@dish.Name">@dish.Name &nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="number" name="count"/>
+            <br />
+        }
+    </p>
+    <p>
+        <input type="submit" value="Create" />
+    </p>
+}

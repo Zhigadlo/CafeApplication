@@ -12,5 +12,10 @@
         public virtual Employee Employee { get; set; } = null!;
 
         public virtual ICollection<OrderDish> OrderDishes { get; } = new List<OrderDish>();
+
+        public double GetCost()
+        {
+            return OrderDishes.Where(od => od.OrderId == Id).Sum(od => od.Dish.Cost);
+        }
     }
 }

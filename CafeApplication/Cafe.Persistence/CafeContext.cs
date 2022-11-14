@@ -9,10 +9,12 @@ namespace Cafe.Persistence
     {
         public CafeContext()
         {
+            Database.EnsureCreated();
         }
 
         public CafeContext(DbContextOptions<CafeContext> options) : base(options)
         {
+            Database.EnsureCreated();
         }
 
         public DbSet<Dish> Dishes { get; set; } = null!;
@@ -25,8 +27,16 @@ namespace Cafe.Persistence
         public DbSet<Profession> Professions { get; set; } = null!;
         public DbSet<Provider> Providers { get; set; } = null!;
 
+        public async Task Save()
+        {
+            await SaveChangesAsync();
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseSqlServer(DatabaseConnection.Instance.GetConnectionString());
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+            base.OnConfiguring(optionsBuilder);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

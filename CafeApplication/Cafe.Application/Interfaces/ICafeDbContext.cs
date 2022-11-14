@@ -14,5 +14,7 @@ namespace Cafe.Application.Interfaces
         DbSet<OrderDish> OrderDishes { get; set; }
         DbSet<Profession> Professions { get; set; }
         DbSet<Provider> Providers { get; set; }
+
+        Task Save();
     }
 }

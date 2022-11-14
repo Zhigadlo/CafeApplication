@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "Employee list";
+}
+@using Cafe.Web.Models.EmployeeViewModels
+@model EmployeeIndexViewModel
+<div>
+    <h2>@Html.ActionLink("add new employee", "CreateView", "Employees")</h2>
+    <form method="get">
+        <label>First name: </label>
+        <input name="firstName" value="@Model.FilterViewModel.SelectedFirstName" />
+
+        <label>Last name: </label>
+        <input name="lastName" value="@Model.FilterViewModel.SelectedLastName" />
+
+        <label>Middle name: </label>
+        <input name="middleName" value="@Model.FilterViewModel.SelectedMiddleName" />
+
+        <label>Professions: </label>
+        <select name="profession" asp-items="Model.FilterViewModel.Professions"></select>
+        <input type="submit" value="Filter" class="btn btn-outline-dark" />
+    </form>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("First name", "Index", "Employees", new {
+                sortOrder = @Model.SortViewModel.FirstNameState,
+                firstName = Model.FilterViewModel.SelectedFirstName,
+                lastName = Model.FilterViewModel.SelectedLastName,
+                middleName = Model.FilterViewModel.SelectedMiddleName,
+                profession = Model.FilterViewModel.SelectedProfession })
+            </th>
+            <th>
+                @Html.ActionLink("Last name", "Index", "Employees", new {
+                sortOrder = @Model.SortViewModel.LastNameState,
+                firstName = Model.FilterViewModel.SelectedFirstName,
+                lastName = Model.FilterViewModel.SelectedLastName,
+                middleName = Model.FilterViewModel.SelectedMiddleName,
+                profession = Model.FilterViewModel.SelectedProfession })
+            </th>
+            <th>
+                @Html.ActionLink("Middle name", "Index", "Employees", new {
+                sortOrder = @Model.SortViewModel.MiddleNameState,
+                firstName = Model.FilterViewModel.SelectedFirstName,
+                lastName = Model.FilterViewModel.SelectedLastName,
+                middleName = Model.FilterViewModel.SelectedMiddleName,
+                profession = Model.FilterViewModel.SelectedProfession })
+            </th>
+            <th>
+                @Html.ActionLink("Age", "Index", "Employees", new {
+                sortOrder = @Model.SortViewModel.AgeState,
+                firstName = Model.FilterViewModel.SelectedFirstName,
+                lastName = Model.FilterViewModel.SelectedLastName,
+                middleName = Model.FilterViewModel.SelectedMiddleName,
+                profession = Model.FilterViewModel.SelectedProfession })
+            </th>
+            <th>
+                @Html.ActionLink("Education", "Index", "Employees", new {
+                sortOrder = @Model.SortViewModel.EducationState,
+                firstName = Model.FilterViewModel.SelectedFirstName,
+                lastName = Model.FilterViewModel.SelectedLastName,
+                middleName = Model.FilterViewModel.SelectedMiddleName,
+                profession = Model.FilterViewModel.SelectedProfession })
+            </th>
+            <th>
+                @Html.ActionLink("Profession", "Index", "Employees", new {
+                sortOrder = @Model.SortViewModel.ProfessionState,
+                firstName = Model.FilterViewModel.SelectedFirstName,
+                lastName = Model.FilterViewModel.SelectedLastName,
+                middleName = Model.FilterViewModel.SelectedMiddleName,
+                profession = Model.FilterViewModel.SelectedProfession })
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.MiddleName</td>
+                <td>@item.Age</td>
+                <td>@item.Education</td>
+                <td>@item.Profession.Name</td>
+                <td>@Html.ActionLink("change", "Update", "Employees", new { id=item.Id })</td>
+                <td>@Html.ActionLink("delete", "Delete", "Employees", new { id=item.Id })</td>
+            </tr>
+        }
+    </table>
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-outline-dark">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Back
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-outline-dark">
+            Forward
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+</div>
+Footer
+© 2022 GitHub, Inc.

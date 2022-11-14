@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Emploee adding";
+}
+@using Cafe.Domain
+@model IEnumerable<Profession>
+@using (Html.BeginForm("Create", "Employees"))
+{
+    <h3>New employee adding</h3>
+    <p>
+        <label>First name</label><br />
+        <input type="text" name="FirstName" required />
+    </p>
+    <p>
+        <label>Last name</label><br />
+        <input type="text" name="LastName" required />
+    </p>
+    <p>
+        <label>Middle name</label><br />
+        <input type="text" name="MiddleName" required />
+    </p>
+    <p>
+        <label>Age</label><br />
+        <input type="number" name="Age" required />
+    </p>
+    <p>
+        <label>Education</label><br />
+        <input type="text" name="Education" required />
+    </p>
+    <p>
+        <label>Profession</label><br />
+        @Html.DropDownList("profession", new SelectList(Model.Select(x=>x.Name)))
+    </p>
+    <p>
+        <input type="submit" value="Create" />
+    </p>
+}
