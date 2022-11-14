@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Order list";
+}
+@using Cafe.Domain
+@using Cafe.Web.Models.OrderViewModels
+@model OrderIndexViewModel
+<div>
+    <h2>@Html.ActionLink("add new order", "CreateView", "Orders")</h2>
+    <form method="get">
+        <label>Customer name: </label>
+        <input name="name" value="@Model.FilterViewModel.SelectedCustomerName" />
+        <input type="submit" value="Filter" class="btn btn-outline-dark" />
+    </form>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Customer name", "Index", "Orders", new { name=Model.FilterViewModel.SelectedCustomerName,
+                sortOrder=Model.SortViewModel.CustomerNameState})
+            </th>
+            <th>
+                @Html.ActionLink("Order date", "Index", "Orders", new { name=Model.FilterViewModel.SelectedCustomerName,
+                sortOrder=Model.SortViewModel.DateState})
+            </th>
+            <th>
+                @Html.ActionLink("Phone number", "Index", "Orders", new { name=Model.FilterViewModel.SelectedCustomerName,
+                sortOrder=Model.SortViewModel.PhoneNumberState})
+            </th>
+            <th>
+                @Html.ActionLink("Cost", "Index", "Orders", new { name=Model.FilterViewModel.SelectedCustomerName,
+                sortOrder=Model.SortViewModel.CostState})
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.CustomerName</td>
+                <td>@item.OrderDate</td>
+                <td>@item.CustomerPhoneNumber</td>
+                <td>@item.GetCost()</td>
+                <td>@Html.ActionLink("details", "Description", "Orders", new { id=item.Id })</td>
+                <td>@Html.ActionLink("change", "UpdateView", "Orders", new { id=item.Id })</td>
+                <td>@Html.ActionLink("delete", "Delete", "Orders", new { id=item.Id })</td>
+            </tr>
+        }
+    </table>
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-outline-dark">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Back
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-outline-dark">
+            Forward
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+</div>
+Footer
+© 2022 GitHub, Inc.

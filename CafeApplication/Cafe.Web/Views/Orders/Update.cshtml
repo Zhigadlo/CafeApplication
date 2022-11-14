@@ -1,0 +1,79 @@
+﻿@using Cafe.Web.Models.OrderViewModels
+@model UpdateOrderViewModel
+
+@{
+    ViewData["Title"] = "Order update";
+}
+@using (Html.BeginForm("UpdateView", "Orders", FormMethod.Post))
+{
+    <h3>Order updating</h3>
+    <p>
+        <label>Customer name</label><br />
+        <input type="text" name="customerName" value="@Model.CustomerName" required />
+    </p>
+    <p>
+        <label>Date</label><br />
+        <input type="datetime-local" name="date" value="@Model.GetViewDate()" required />
+    </p>
+    <p>
+        <label>Customer phone number</label><br />
+        <input type="text" name="phoneNumber" value="@Model.PhoneNumber" required />
+    </p>
+    <p>
+        <label>Payment method</label>
+        <select name="paymentMethod">
+            @if (Model.PaymentMethod == 0)
+            {
+                <option value="0" selected>cash</option>
+                <option value="1">card</option>
+            }
+            else
+            {
+                <option value="0">cash</option>
+                <option value="1" selected>card</option>
+            }
+        </select>
+    </p>
+    <p>
+        <label>Employee</label>
+        <select name="employee" asp-items="@Model.Employees"></select>
+    </p>
+    <p>
+        <label>IsCompleted</label>
+        <select name="isComplete">
+            @if (Model.IsComplete == 0)
+            {
+                <option value="0" selected>false</option>
+                <option value="1">card</option>
+            }
+            else
+            {
+                <option value="0">cash</option>
+                <option value="1" selected>true</option>
+            }
+        </select>
+    </p>
+    <p>
+        <label>Dishes</label><br />
+        
+        @foreach (var dish in Model.CountDishes)
+        {
+            if (dish.Value != 0)
+            {
+                <input type="checkbox" id="@dish.Key.Name" name="dishIds" value="@dish.Key.Id" checked/>
+                <label for="@dish.Key.Name">@dish.Key.Name &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="number" name="count" value="@dish.Value"/>
+            }
+            else
+            {
+                <input type="checkbox" id="@dish.Key.Name" name="dishIds" value="@dish.Key.Id"/>
+                <label for="@dish.Key.Name">@dish.Key.Name &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="number" name="count"/>
+            }
+            <br />
+        }
+    </p>
+    <p>
+        <input type="submit" value="Update" />
+    </p>
+}

@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Order description";
+}
+@using Cafe.Domain
+@model Order
+
+<div>
+    <h3>Dish description</h3>
+    <p>
+        @if (Model.IsCompleted == 0)
+        {
+            <label>Is comleted: false</label>
+        }
+        else
+        {
+            <label>Is comleted: true</label>
+        }
+        <br/>
+    </p>
+    <p>
+        <label>Customer name: @Model.CustomerName</label><br />
+    </p>
+    <p>
+        <label>Customer phone number: @Model.CustomerPhoneNumber</label><br />
+    </p>
+    <p>
+        <label>Cost: @Model.GetCost()</label><br />
+    </p>
+    <p>
+        @if(Model.PaymentMethod == 0)
+        {
+            <label>Payment method: cash </label>
+        }
+        else
+        {
+            <label>Payment method: card</label>
+        }
+        <br />
+    </p>
+    <p>
+        <label>Employee: @Model.Employee.FirstName @Model.Employee.LastName</label><br />
+    </p>
+    <p>
+        <label>Dishes(name - cost):</label><br />
+        @foreach (var orderDish in Model.OrderDishes)
+        {
+            <label>@orderDish.Dish.Name - @orderDish.Dish.Cost</label>
+            <br />
+        }
+    </p>
+</div>

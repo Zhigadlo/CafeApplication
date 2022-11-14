@@ -20,11 +20,10 @@ builder.Services.AddTransient<ICafeDbContext, CafeContext>();
 builder.Services.AddTransient<IngridientService>();
 builder.Services.AddTransient<DishService>();
 builder.Services.AddTransient<EmployeeService>();
+builder.Services.AddTransient<OrderService>();
 builder.Services.AddMediatR(typeof(ICafeDbContext).Assembly);
 builder.Services.AddResponseCaching();
 builder.Services.AddControllersWithViews();
-
-
 
 var app = builder.Build();
 
@@ -50,7 +49,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Dishes}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

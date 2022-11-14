@@ -10,7 +10,7 @@ namespace Cafe.Web.Controllers
     {
         public DishesController(DishService service) : base(service) { }
 
-        public async Task<IActionResult> IndexAsync(string name, int page = 1, DishSortState sortOrder = DishSortState.NameAsc)
+        public async Task<IActionResult> Index(string name, int page = 1, DishSortState sortOrder = DishSortState.NameAsc)
         {
             IEnumerable<Dish> dishes = await _service.GetAllDishes();
 
