@@ -14,7 +14,7 @@ namespace Cafe.Web.Models.OrderViewModels
         public int IsComplete { get; }
         public SelectList Employees { get; }
         public Dictionary<Dish, int> CountDishes { get; }
-        
+
         public UpdateOrderViewModel(Order order, IEnumerable<Employee> employees, IEnumerable<Dish> dishes)
         {
             Id = order.Id;
@@ -24,20 +24,15 @@ namespace Cafe.Web.Models.OrderViewModels
             PaymentMethod = order.PaymentMethod;
             EmployeeId = order.EmployeeId;
             IsComplete = order.IsCompleted;
-            
+
 
             Employees = new SelectList(employees, "Id", "LastName", employees.First().Id);
             CountDishes = new Dictionary<Dish, int>();
-            foreach(var dish in dishes)
+            foreach (var dish in dishes)
             {
                 int count = order.OrderDishes.Count(od => od.DishId == dish.Id);
                 CountDishes.Add(dish, count);
-            }    
-        }
-
-        public string GetViewDate()
-        {
-            return Date.Year + "-" + Date.Month + "-" + Date.Day + "T" + Date.Hour + ":" + Date.Minute;
+            }
         }
 
     }

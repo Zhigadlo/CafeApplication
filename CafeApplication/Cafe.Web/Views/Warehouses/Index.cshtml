@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "Ingridients at warehouse list";
+}
+@using Cafe.Domain
+@using Cafe.Web.Models.WarehouseViewModels
+@model WarehouseIndexViewModel
+<div>
+    <h2>@Html.ActionLink("add new ingridient to warehouse", "CreateView", "Warehouses")</h2>
+    <form method="get">
+        <label>Ingridient name: </label>
+        <input name="ingridient" value="@Model.FilterViewModel.SelectedIngridient" />
+
+        <label>Provider: </label>
+        <select name="provider" asp-items="Model.FilterViewModel.Providers"></select>
+
+        <input type="submit" value="Filter" class="btn btn-outline-dark" />
+    </form>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Ingridients", "Index", "Warehouses", new { name=Model.FilterViewModel.SelectedIngridient,
+                sortOrder=Model.SortViewModel.IngridientState})
+            </th>
+            <th>
+                @Html.ActionLink("Providers", "Index", "Warehouses", new { name=Model.FilterViewModel.SelectedIngridient,
+                sortOrder=Model.SortViewModel.ProviderState})
+            </th>
+            <th>
+                @Html.ActionLink("Weight", "Index", "Warehouses", new { name=Model.FilterViewModel.SelectedIngridient,
+                sortOrder=Model.SortViewModel.WeightState})
+            </th>
+            <th>
+                @Html.ActionLink("Cost", "Index", "Warehouses", new { name=Model.FilterViewModel.SelectedIngridient,
+                sortOrder=Model.SortViewModel.CostState})
+            </th>
+            <th>
+                @Html.ActionLink("Release date", "Index", "Warehouses", new { name=Model.FilterViewModel.SelectedIngridient,
+                sortOrder=Model.SortViewModel.ReleaseDateState})
+            </th>
+            <th>
+                @Html.ActionLink("Storage life", "Index", "Warehouses", new { name=Model.FilterViewModel.SelectedIngridient,
+                sortOrder=Model.SortViewModel.StorageLifeState})
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Ingridient.Name</td>
+                <td>@item.Provider.Name</td>
+                <td>@item.Weight</td>
+                <td>@item.Cost</td>
+                <td>@item.ReleaseDate.ToShortDateString()</td>
+                <td>@item.StorageLife.ToShortDateString()</td>
+                <td>@Html.ActionLink("change", "UpdateView", "Warehouses", new { id=item.Id })</td>
+                <td>@Html.ActionLink("delete", "Delete", "Warehouses", new { id=item.Id })</td>
+            </tr>
+        }
+    </table>
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-outline-dark">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Back
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-outline-dark">
+            Forward
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+</div>
+Footer
+© 2022 GitHub, Inc.

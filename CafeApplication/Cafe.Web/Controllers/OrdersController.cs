@@ -61,7 +61,7 @@ namespace Cafe.Web.Controllers
             };
             return View(viewModel);
         }
-    
+
         public async Task<IActionResult> Description(int id)
         {
             return View(await _service.GetOrderById(id));
@@ -85,7 +85,7 @@ namespace Cafe.Web.Controllers
 
         [HttpGet]
         [Route("Orders/Update/{id}")]
-        public async Task<IActionResult> UpdateView(int id) 
+        public async Task<IActionResult> UpdateView(int id)
         {
             return View("Update", new UpdateOrderViewModel(await _service.GetOrderById(id), await _service.GetAllEmployees(), await _service.GetAllDishes()));
         }

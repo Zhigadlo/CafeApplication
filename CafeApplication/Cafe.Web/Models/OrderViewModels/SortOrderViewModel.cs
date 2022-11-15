@@ -7,8 +7,8 @@
         public OrderSortState PhoneNumberState { get; set; }
         public OrderSortState CostState { get; set; }
         public OrderSortState Current { get; set; }
-        public SortOrderViewModel(OrderSortState orderState) 
-        { 
+        public SortOrderViewModel(OrderSortState orderState)
+        {
             CustomerNameState = orderState == OrderSortState.CustomerNameAsc ? OrderSortState.CustomerNameDesc : OrderSortState.CustomerNameAsc;
             DateState = orderState == OrderSortState.OrderDateAsc ? OrderSortState.OrderDateDesc : OrderSortState.OrderDateAsc;
             PhoneNumberState = orderState == OrderSortState.PhoneNumberAsc ? OrderSortState.PhoneNumberDesc : OrderSortState.PhoneNumberAsc;

@@ -9,11 +9,11 @@
     <p>
         @if (Model.IsCompleted == 0)
         {
-            <label>Is comleted: false</label>
+            <label>Is completed: false</label>
         }
         else
         {
-            <label>Is comleted: true</label>
+            <label>Is completed: true</label>
         }
         <br/>
     </p>
@@ -41,10 +41,10 @@
         <label>Employee: @Model.Employee.FirstName @Model.Employee.LastName</label><br />
     </p>
     <p>
-        <label>Dishes(name - cost):</label><br />
+        <label>Dishes(name(cost) - count):</label><br />
         @foreach (var orderDish in Model.OrderDishes)
         {
-            <label>@orderDish.Dish.Name - @orderDish.Dish.Cost</label>
+            <label>@orderDish.Dish.Name (@orderDish.Dish.Cost) - @orderDish.DishCount</label>
             <br />
         }
     </p>

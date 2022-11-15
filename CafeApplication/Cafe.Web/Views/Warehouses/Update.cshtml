@@ -1,0 +1,37 @@
+﻿@using Cafe.Web.Models.WarehouseViewModels
+@model UpdateWarehouseViewModel
+@{
+    ViewData["Title"] = "Ingridient at warehouse update";
+}
+@using (Html.BeginForm("UpdateView", "Warehouses", FormMethod.Post))
+{
+    <h3>Ingridient at warehouse updating</h3>
+    <p>
+        <label>Ingridient</label>
+        <select name="IngridientId" asp-items="@Model.Ingridients"></select>
+    </p>
+    <p>
+        <label>Provider</label>
+        <select name="ProviderId" asp-items="@Model.Providers"></select>
+    </p>
+    <p>
+        <label>Weight</label><br />
+        <input type="number" name="Weight" value="@Model.Warehouse.Weight" required />
+    </p>
+    <p>
+        <label>Cost</label><br />
+        <input type="number" name="Cost" value="@Model.Warehouse.Cost" required />
+    </p>
+    <p>
+        <label>Release date</label><br />
+        <input type="datetime-local" name="ReleaseDate" value="@Model.Warehouse.ReleaseDate.ToString("yyyy-MM-ddThh:mm")" required />
+    </p>
+    <p>
+        <label>Storage life</label><br />
+        <input type="datetime-local" name="StorageLife" value="@Model.Warehouse.StorageLife.ToString("yyyy-MM-ddThh:mm")" required />
+    </p>
+    <p>
+        <input type="submit" value="Update" />
+    </p>
+}
+
