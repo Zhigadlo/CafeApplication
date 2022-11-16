@@ -1,5 +1,7 @@
 ﻿using Cafe.Domain;
 using Cafe.Persistence;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Cafe.Web.Middleware
 {
@@ -227,6 +229,11 @@ namespace Cafe.Web.Middleware
                     dbcontext.SaveChanges();
                 }
             }
+        }
+
+        private void UsersInitialize(CafeContext context)
+        {
+            
         }
     }
 }

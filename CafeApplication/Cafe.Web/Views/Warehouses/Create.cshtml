@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Adding ingridient to warehouse";
+}
+@using Cafe.Web.Models.WarehouseViewModels;
+@model CreateWarehouseViewModel;
+@using (Html.BeginForm("Create", "Warehouses"))
+{
+    <h3>Adding new ingridient to warehouse</h3>
+    <p>
+        <label>Ingridient</label>
+        <select name="IngridientId" asp-items="@Model.Ingridients"></select>
+    </p>
+    <p>
+        <label>Provider</label>
+        <select name="ProviderId" asp-items="@Model.Providers"></select>
+    </p>
+    <p>
+        <label>Weight</label><br />
+        <input type="number" name="Weight" required />
+    </p>
+    <p>
+        <label>Cost</label><br />
+        <input type="number" name="Cost" required />
+    </p>
+    <p>
+        <label>Release date</label><br />
+        <input type="datetime-local" name="ReleaseDate" required />
+    </p>
+    <p>
+        <label>Storage life</label><br />
+        <input type="datetime-local" name="StorageLife" required />
+    </p>
+    <p>
+        <input type="submit" value="Create" />
+    </p>
+}

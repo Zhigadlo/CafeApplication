@@ -26,15 +26,18 @@ namespace Cafe.Application.Commands.Orders
                     var newOrderDish = new OrderDish();
                     newOrderDish.Order = orderForUpdate;
                     newOrderDish.Dish = _context.Dishes.First(x => x.Id == command.DishIds[i]);
+                    newOrderDish.DishCount = command.Count[i];
                     await _context.OrderDishes.AddAsync(newOrderDish);
                 }
                 else
                 {
                     orderDish.Order = orderForUpdate;
                     orderDish.Dish = _context.Dishes.First(x => x.Id == command.DishIds[i]);
+                    orderDish.DishCount = command.Count[i];
                     _context.OrderDishes.Update(orderDish);
                 }
             }
+            _context.OrderDishes.RemoveRange(_context.OrderDishes.Where(od => od.OrderId == command.Id && !command.DishIds.Contains(od.DishId)));
             _context.Orders.Update(orderForUpdate);
             await _context.Save();
             return await Task.FromResult(orderForUpdate);

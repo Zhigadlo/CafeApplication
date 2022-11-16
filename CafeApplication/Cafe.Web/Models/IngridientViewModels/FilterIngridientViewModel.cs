@@ -11,7 +11,7 @@ namespace Cafe.Web.Models.IngridientViewModels
 
         public FilterIngridientViewModel(List<Ingridient> ingridients, int? ingridient, string name)
         {
-            ingridients.Insert(0, new Ingridient { Name = "Все", Id = 0 });
+            ingridients.Insert(0, new Ingridient { Name = "All", Id = 0 });
             Ingridients = new SelectList(ingridients, "Id", "Name", ingridient);
             SelectedIngridient = ingridient;
             SelectedName = name;

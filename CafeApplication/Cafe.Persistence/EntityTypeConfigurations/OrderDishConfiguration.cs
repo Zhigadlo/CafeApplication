@@ -12,6 +12,7 @@ namespace Cafe.Persistence.EntityTypeConfigurations
             builder.Property(e => e.Id).HasColumnOrder(0);
             builder.Property(e => e.OrderId).HasColumnOrder(1);
             builder.Property(e => e.DishId).HasColumnOrder(2);
+            builder.Property(e => e.DishCount).HasColumnOrder(3);
             builder.HasOne(d => d.Dish).WithMany(p => p.OrderDishes)
                 .HasForeignKey(d => d.DishId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
