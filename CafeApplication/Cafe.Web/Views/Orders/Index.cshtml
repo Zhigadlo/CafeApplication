@@ -5,7 +5,7 @@
 @using Cafe.Web.Models.OrderViewModels
 @model OrderIndexViewModel
 <div>
-    <h2>@Html.ActionLink("add new order", "CreateView", "Orders")</h2>
+    <h2>@Html.ActionLink("add new order", "CreateView", "Orders", null, new { @class="btn btn-sm btn-dark" })</h2>
     <form method="get">
         <label>Customer name: </label>
         <input name="name" value="@Model.FilterViewModel.SelectedCustomerName" />
@@ -15,19 +15,19 @@
         <tr>
             <th>
                 @Html.ActionLink("Customer name", "Index", "Orders", new { name=Model.FilterViewModel.SelectedCustomerName,
-                sortOrder=Model.SortViewModel.CustomerNameState})
+                sortOrder=Model.SortViewModel.CustomerNameState}, new { @class="btn btn-sm" })
             </th>
             <th>
                 @Html.ActionLink("Order date", "Index", "Orders", new { name=Model.FilterViewModel.SelectedCustomerName,
-                sortOrder=Model.SortViewModel.DateState})
+                sortOrder=Model.SortViewModel.DateState}, new { @class="btn btn-sm" })
             </th>
             <th>
                 @Html.ActionLink("Phone number", "Index", "Orders", new { name=Model.FilterViewModel.SelectedCustomerName,
-                sortOrder=Model.SortViewModel.PhoneNumberState})
+                sortOrder=Model.SortViewModel.PhoneNumberState}, new { @class="btn btn-sm" })
             </th>
             <th>
                 @Html.ActionLink("Cost", "Index", "Orders", new { name=Model.FilterViewModel.SelectedCustomerName,
-                sortOrder=Model.SortViewModel.CostState})
+                sortOrder=Model.SortViewModel.CostState}, new { @class="btn btn-sm" })
             </th>
             <th></th>
             <th></th>
@@ -40,9 +40,9 @@
                 <td>@item.OrderDate</td>
                 <td>@item.CustomerPhoneNumber</td>
                 <td>@item.GetCost()</td>
-                <td>@Html.ActionLink("details", "Description", "Orders", new { id=item.Id })</td>
-                <td>@Html.ActionLink("change", "UpdateView", "Orders", new { id=item.Id })</td>
-                <td>@Html.ActionLink("delete", "Delete", "Orders", new { id=item.Id })</td>
+                <td>@Html.ActionLink("details", "Description", "Orders", new { id=item.Id }, new { @class="btn btn-sm btn-info" })</td>
+                <td>@Html.ActionLink("change", "UpdateView", "Orders", new { id=item.Id }, new { @class="btn btn-sm btn-primary" })</td>
+                <td>@Html.ActionLink("delete", "Delete", "Orders", new { id=item.Id }, new { @class="btn btn-sm btn-danger" })</td>
             </tr>
         }
     </table>
