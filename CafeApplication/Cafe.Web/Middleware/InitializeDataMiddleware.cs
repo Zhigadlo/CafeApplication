@@ -201,10 +201,12 @@ namespace Cafe.Web.Middleware
             if (!dbcontext.IngridientsDishes.Any())
             {
                 Random rnd = new Random();
-                Dictionary<Dish, string[]> ingridientsDishes = new Dictionary<Dish, string[]>();
-                ingridientsDishes.Add(dbcontext.Dishes.ToArray()[0], new string[] { "milk", "coffee", "water" });
-                ingridientsDishes.Add(dbcontext.Dishes.ToArray()[1], new string[] { "tea", "sugar", "water" });
-                ingridientsDishes.Add(dbcontext.Dishes.ToArray()[2], new string[] { "tea", "lemon", "water" });
+                Dictionary<Dish, string[]> ingridientsDishes = new Dictionary<Dish, string[]>
+                {
+                    { dbcontext.Dishes.ToArray()[0], new string[] { "milk", "coffee", "water" } },
+                    { dbcontext.Dishes.ToArray()[1], new string[] { "tea", "sugar", "water" } },
+                    { dbcontext.Dishes.ToArray()[2], new string[] { "tea", "lemon", "water" } }
+                };
 
                 List<IngridientsDish> ingridientsDishForDb = new List<IngridientsDish>();
                 foreach (KeyValuePair<Dish, string[]> item in ingridientsDishes)
@@ -229,10 +231,18 @@ namespace Cafe.Web.Middleware
             string adminEmail = "admin@gmail.com";
             string adminName = adminEmail;
 
+            string hostEmail = "host@gmail.com";
+            string hostName = "Host";
+
             string adminPassword = "Admin1234_";
+            string hostPassword = "Host1234_";
             if (await roleManager.FindByNameAsync("admin") == null)
             {
                 await roleManager.CreateAsync(new IdentityRole("admin"));
+            }
+            if(await roleManager.FindByNameAsync("host") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("host"));
             }
             if (await userManager.FindByNameAsync(adminEmail) == null)
             {
@@ -245,6 +255,19 @@ namespace Cafe.Web.Middleware
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(admin, "admin");
+                }
+            }
+            if (await userManager.FindByNameAsync(hostName) == null)
+            {
+                IdentityUser host = new IdentityUser
+                {
+                    Email = hostEmail,
+                    UserName = hostName
+                };
+                IdentityResult result = await userManager.CreateAsync(host, hostPassword);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(host, "host");
                 }
             }
         }
