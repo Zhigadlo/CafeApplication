@@ -9,7 +9,7 @@ namespace Cafe.Web.Controllers
     public class DishesController : BaseController<DishService>
     {
         private IngridientService _ingridientService;
-        public DishesController(DishService dishService, IngridientService ingridientService) : base(dishService) 
+        public DishesController(DishService dishService, IngridientService ingridientService) : base(dishService)
         {
             _ingridientService = ingridientService;
         }
@@ -17,7 +17,7 @@ namespace Cafe.Web.Controllers
         public async Task<IActionResult> Index(string name, int page = 1, DishSortState sortOrder = DishSortState.NameAsc)
         {
             IEnumerable<Dish> dishes = await _service.GetAll();
-            
+
             if (!String.IsNullOrEmpty(name))
             {
                 dishes = dishes.Where(x => x.Name.Contains(name));

@@ -12,7 +12,7 @@ namespace Cafe.Web.Services
         public async Task<IEnumerable<Provider>> GetAll()
         {
             IEnumerable<Provider> providers;
-            if(!_cache.TryGetValue("providers", out providers))
+            if (!_cache.TryGetValue("providers", out providers))
             {
                 providers = await _mediator.Send(new GetAllProvidersCommand());
                 _cache.Set("providers", providers.ToList());

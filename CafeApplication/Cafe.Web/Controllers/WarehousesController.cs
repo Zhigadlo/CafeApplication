@@ -10,9 +10,9 @@ namespace Cafe.Web.Controllers
     {
         private ProviderService _providerService;
         private IngridientService _ingridientService;
-        public WarehousesController(WarehouseService service, 
-                                    ProviderService providerService, 
-                                    IngridientService ingridientService) : base(service) 
+        public WarehousesController(WarehouseService service,
+                                    ProviderService providerService,
+                                    IngridientService ingridientService) : base(service)
         {
             _providerService = providerService;
             _ingridientService = ingridientService;
@@ -21,7 +21,7 @@ namespace Cafe.Web.Controllers
         public async Task<IActionResult> Index(string ingridient, int? provider, int page = 1,
                                     WarehouseSortState sortOrder = WarehouseSortState.StorageLifeAsc)
         {
-            IEnumerable<IngridientsWarehouse> warehouses = await _service.GetAll();;
+            IEnumerable<IngridientsWarehouse> warehouses = await _service.GetAll(); ;
 
             if (provider != 0 && provider != null)
             {
@@ -90,7 +90,7 @@ namespace Cafe.Web.Controllers
         public async Task<IActionResult> CreateView()
         {
 
-            return View("Create", new CreateWarehouseViewModel(await _ingridientService.GetAll(), 
+            return View("Create", new CreateWarehouseViewModel(await _ingridientService.GetAll(),
                                                                await _providerService.GetAll()));
         }
 
@@ -110,8 +110,8 @@ namespace Cafe.Web.Controllers
         [Route("Warehouses/Update/{id}")]
         public async Task<IActionResult> UpdateView(int id)
         {
-            return View("Update", new UpdateWarehouseViewModel(await _ingridientService.GetAll(), 
-                                                               await _providerService.GetAll(), 
+            return View("Update", new UpdateWarehouseViewModel(await _ingridientService.GetAll(),
+                                                               await _providerService.GetAll(),
                                                                await _service.GetWarehouseById(id)));
         }
 

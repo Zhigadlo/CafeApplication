@@ -12,7 +12,7 @@ namespace Cafe.Web.Services
         public async Task<IEnumerable<Profession>> GetAll()
         {
             IEnumerable<Profession> professions;
-            if(!_cache.TryGetValue("professions", out professions))
+            if (!_cache.TryGetValue("professions", out professions))
             {
                 professions = await _mediator.Send(new GetAllProfessionsCommand());
                 _cache.Set("professions", professions.ToList());

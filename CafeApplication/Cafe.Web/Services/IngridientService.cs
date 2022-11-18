@@ -12,7 +12,7 @@ namespace Cafe.Web.Services
         public async Task<IEnumerable<Ingridient>> GetAll()
         {
             IEnumerable<Ingridient> ingridients;
-            if(!_cache.TryGetValue("ingridients", out ingridients))
+            if (!_cache.TryGetValue("ingridients", out ingridients))
             {
                 ingridients = await _mediator.Send(new GetAllIngridientsCommand());
                 _cache.Set("ingridients", ingridients.ToList());

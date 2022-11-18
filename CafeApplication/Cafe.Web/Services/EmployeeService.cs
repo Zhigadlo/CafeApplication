@@ -1,6 +1,5 @@
 ﻿using Cafe.Application.Commands.Employees;
 using Cafe.Application.Queries.Employees;
-using Cafe.Application.Queries.Professions;
 using Cafe.Domain;
 using MediatR;
 using Microsoft.Extensions.Caching.Memory;
@@ -15,7 +14,7 @@ namespace Cafe.Web.Services
         {
             IEnumerable<Employee> employees;
 
-            if(!_cache.TryGetValue("employees", out employees))
+            if (!_cache.TryGetValue("employees", out employees))
             {
                 employees = await _mediator.Send(new GetAllEmployeesCommand());
                 _cache.Set("employees", employees.ToList());

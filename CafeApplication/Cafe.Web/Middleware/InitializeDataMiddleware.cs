@@ -1,8 +1,6 @@
 ﻿using Cafe.Domain;
 using Cafe.Persistence;
-using Cafe.Web.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Cafe.Web.Middleware
 {
@@ -15,7 +13,7 @@ namespace Cafe.Web.Middleware
             _next = next;
         }
 
-        public Task Invoke(HttpContext httpContext, 
+        public Task Invoke(HttpContext httpContext,
                            CafeContext dbcontext)
         {
             IngridientsInitialize(dbcontext);

@@ -1,6 +1,4 @@
 ﻿using Cafe.Application.Commands.Orders;
-using Cafe.Application.Queries.Dishes;
-using Cafe.Application.Queries.Employees;
 using Cafe.Application.Queries.Orders;
 using Cafe.Domain;
 using MediatR;
@@ -15,7 +13,7 @@ namespace Cafe.Web.Services
         public async Task<IEnumerable<Order>> GetAll()
         {
             IEnumerable<Order> orders;
-            if(!_cache.TryGetValue("orders", out orders))
+            if (!_cache.TryGetValue("orders", out orders))
             {
                 orders = await _mediator.Send(new GetAllOrdersCommand());
                 _cache.Set("orders", orders.ToList());

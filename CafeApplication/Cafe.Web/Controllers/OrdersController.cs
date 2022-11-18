@@ -10,12 +10,12 @@ namespace Cafe.Web.Controllers
     {
         private DishService _dishService;
         private EmployeeService _employeeService;
-        public OrdersController(OrderService orderService, DishService dishService, EmployeeService employeeService) : base(orderService) 
+        public OrdersController(OrderService orderService, DishService dishService, EmployeeService employeeService) : base(orderService)
         {
             _dishService = dishService;
             _employeeService = employeeService;
         }
-        
+
         public async Task<IActionResult> Index(string name, int page = 1, OrderSortState sortOrder = OrderSortState.OrderDateAsc)
         {
             IEnumerable<Order> orders = await _service.GetAll();

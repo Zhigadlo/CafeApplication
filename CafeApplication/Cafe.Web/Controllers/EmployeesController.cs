@@ -9,7 +9,7 @@ namespace Cafe.Web.Controllers
     public class EmployeesController : BaseController<EmployeeService>
     {
         private ProfessionService _professionService;
-        public EmployeesController(EmployeeService employeeService, ProfessionService professionService) : base(employeeService) 
+        public EmployeesController(EmployeeService employeeService, ProfessionService professionService) : base(employeeService)
         {
             _professionService = professionService;
         }

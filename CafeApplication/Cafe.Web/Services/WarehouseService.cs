@@ -1,6 +1,4 @@
 ﻿using Cafe.Application.Commands.Warehouses;
-using Cafe.Application.Queries.Ingridients;
-using Cafe.Application.Queries.Providers;
 using Cafe.Application.Queries.Warehouses;
 using Cafe.Domain;
 using MediatR;
@@ -16,7 +14,7 @@ namespace Cafe.Web.Services
         {
             IEnumerable<IngridientsWarehouse> ingridientsWarehouses;
 
-            if(!_cache.TryGetValue("warehouses", out ingridientsWarehouses))
+            if (!_cache.TryGetValue("warehouses", out ingridientsWarehouses))
             {
                 ingridientsWarehouses = await _mediator.Send(new GetAllWarehousesCommand());
                 _cache.Set("warehouses", ingridientsWarehouses.ToList());
