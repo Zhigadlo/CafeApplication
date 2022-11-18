@@ -1,5 +1,6 @@
 ﻿using Cafe.Domain;
 using Cafe.Persistence;
+using Cafe.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
@@ -14,7 +15,8 @@ namespace Cafe.Web.Middleware
             _next = next;
         }
 
-        public Task Invoke(HttpContext httpContext, CafeContext dbcontext)
+        public Task Invoke(HttpContext httpContext, 
+                           CafeContext dbcontext)
         {
             IngridientsInitialize(dbcontext);
             DishesInitialize(dbcontext);
@@ -25,6 +27,7 @@ namespace Cafe.Web.Middleware
             OrderInitialize(dbcontext, 1000);
             OrderDishInitialize(dbcontext);
             IngridientsDishInitialize(dbcontext);
+            RolesInitialize(httpContext).Wait();
             return _next(httpContext);
         }
 
@@ -45,7 +48,6 @@ namespace Cafe.Web.Middleware
                 dbcontext.SaveChanges();
             }
         }
-
         private void DishesInitialize(CafeContext dbcontext)
         {
             if (!dbcontext.Dishes.Any())
@@ -68,7 +70,6 @@ namespace Cafe.Web.Middleware
             }
 
         }
-
         private void ProfessionInitialize(CafeContext dbcontext)
         {
             if (!dbcontext.Professions.Any())
@@ -85,7 +86,6 @@ namespace Cafe.Web.Middleware
                 dbcontext.SaveChanges();
             }
         }
-
         private void EmployeesInitialize(CafeContext dbcontext)
         {
             if (!dbcontext.Employees.Any())
@@ -108,7 +108,6 @@ namespace Cafe.Web.Middleware
                 dbcontext.SaveChanges();
             }
         }
-
         private void ProvidersInitialize(CafeContext dbcontext, int providersCount)
         {
             if (!dbcontext.Providers.Any())
@@ -124,7 +123,6 @@ namespace Cafe.Web.Middleware
                 dbcontext.SaveChanges();
             }
         }
-
         private void IngridientWarehouseInitialize(CafeContext dbcontext, int count)
         {
             if (!dbcontext.IngridientsWarehouses.Any())
@@ -151,7 +149,6 @@ namespace Cafe.Web.Middleware
                 dbcontext.SaveChanges();
             }
         }
-
         private void OrderInitialize(CafeContext dbcontext, int ordersCount)
         {
             if (!dbcontext.Orders.Any())
@@ -179,7 +176,6 @@ namespace Cafe.Web.Middleware
                 dbcontext.SaveChanges();
             }
         }
-
         private void OrderDishInitialize(CafeContext dbcontext)
         {
             if (!dbcontext.OrderDishes.Any())
@@ -202,8 +198,6 @@ namespace Cafe.Web.Middleware
                 dbcontext.SaveChanges();
             }
         }
-
-
         private void IngridientsDishInitialize(CafeContext dbcontext)
         {
             if (!dbcontext.IngridientsDishes.Any())
@@ -230,10 +224,31 @@ namespace Cafe.Web.Middleware
                 }
             }
         }
-
-        private void UsersInitialize(CafeContext context)
+        private async Task RolesInitialize(HttpContext context)
         {
-            
+            UserManager<IdentityUser> userManager = context.RequestServices.GetRequiredService<UserManager<IdentityUser>>();
+            RoleManager<IdentityRole> roleManager = context.RequestServices.GetRequiredService<RoleManager<IdentityRole>>();
+            string adminEmail = "admin@gmail.com";
+            string adminName = adminEmail;
+
+            string adminPassword = "Admin1234_";
+            if (await roleManager.FindByNameAsync("admin") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("admin"));
+            }
+            if (await userManager.FindByNameAsync(adminEmail) == null)
+            {
+                IdentityUser admin = new IdentityUser
+                {
+                    Email = adminEmail,
+                    UserName = adminName
+                };
+                IdentityResult result = await userManager.CreateAsync(admin, adminPassword);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(admin, "admin");
+                }
+            }
         }
     }
 }
