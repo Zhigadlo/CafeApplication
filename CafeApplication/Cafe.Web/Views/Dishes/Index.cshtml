@@ -5,7 +5,10 @@
 @using Cafe.Web.Models.DishViewModels
 @model DishIndexViewModel
 <div>
-    <h2>@Html.ActionLink("add new dish", "CreateView", "Dishes")</h2>
+    @if (User.IsInRole("admin"))
+    {
+        <h2>@Html.ActionLink("add new dish", "CreateView", "Dishes")</h2>
+    }
     <form method="get">
         <label>Name: </label>
         <input name="name" value="@Model.FilterViewModel.SelectedName" />
@@ -26,8 +29,11 @@
                 sortOrder=Model.SortViewModel.CookingTimeState})
             </th>
             <th></th>
-            <th></th>
-            <th></th>
+            @if(@User.IsInRole("admin"))
+            {
+                <th></th>
+                <th></th>
+            }
         </tr>
         @foreach (var item in Model.Items)
         {
@@ -36,8 +42,11 @@
                 <td>@item.Cost</td>
                 <td>@item.CookingTime</td>
                 <td>@Html.ActionLink("details", "Description", "Dishes", new { id=item.Id })</td>
-                <td>@Html.ActionLink("change", "Update", "Dishes", new { id=item.Id })</td>
-                <td>@Html.ActionLink("delete", "Delete", "Dishes", new { id=item.Id })</td>
+                @if (User.IsInRole("admin"))
+                {
+                    <td>@Html.ActionLink("change", "Update", "Dishes", new { id=item.Id })</td>
+                    <td>@Html.ActionLink("delete", "Delete", "Dishes", new { id=item.Id })</td>
+                }
             </tr>
         }
     </table>

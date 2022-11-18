@@ -1,6 +1,7 @@
 using Cafe.Application.Interfaces;
 using Cafe.Persistence;
 using Cafe.Web.Data;
+using Cafe.Web.Middleware;
 using Cafe.Web.Services;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -16,10 +17,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddTransient<ICafeDbContext, CafeContext>();
 builder.Services.AddTransient<IngridientService>();
+builder.Services.AddTransient<ProfessionService>();
+builder.Services.AddTransient<ProviderService>();
 builder.Services.AddTransient<DishService>();
 builder.Services.AddTransient<EmployeeService>();
 builder.Services.AddTransient<OrderService>();
@@ -45,7 +48,10 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseMiddleware<InitializeDataMiddleware>();
+
 app.UseRouting();
+
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -8,12 +8,20 @@ namespace Cafe.Web.Controllers
 {
     public class WarehousesController : BaseController<WarehouseService>
     {
-        public WarehousesController(WarehouseService service) : base(service) { }
+        private ProviderService _providerService;
+        private IngridientService _ingridientService;
+        public WarehousesController(WarehouseService service, 
+                                    ProviderService providerService, 
+                                    IngridientService ingridientService) : base(service) 
+        {
+            _providerService = providerService;
+            _ingridientService = ingridientService;
+        }
 
         public async Task<IActionResult> Index(string ingridient, int? provider, int page = 1,
                                     WarehouseSortState sortOrder = WarehouseSortState.StorageLifeAsc)
         {
-            IEnumerable<IngridientsWarehouse> warehouses = await _service.GetAllWarehouses();;
+            IEnumerable<IngridientsWarehouse> warehouses = await _service.GetAll();;
 
             if (provider != 0 && provider != null)
             {
@@ -73,7 +81,7 @@ namespace Cafe.Web.Controllers
             {
                 PageViewModel = pageViewModel,
                 Items = items,
-                FilterViewModel = new FilterWarehouseViewModel((await _service.GetAllProviders()), provider, ingridient),
+                FilterViewModel = new FilterWarehouseViewModel((await _providerService.GetAll()), provider, ingridient),
                 SortViewModel = new SortWarehouseViewModel(sortOrder)
             };
             return View(viewModel);
@@ -82,8 +90,8 @@ namespace Cafe.Web.Controllers
         public async Task<IActionResult> CreateView()
         {
 
-            return View("Create", new CreateWarehouseViewModel(await _service.GetAllIngridients(), 
-                                                               await _service.GetAllProviders()));
+            return View("Create", new CreateWarehouseViewModel(await _ingridientService.GetAll(), 
+                                                               await _providerService.GetAll()));
         }
 
         public async Task<IActionResult> Create(IngridientsWarehouse warehouse)
@@ -102,8 +110,8 @@ namespace Cafe.Web.Controllers
         [Route("Warehouses/Update/{id}")]
         public async Task<IActionResult> UpdateView(int id)
         {
-            return View("Update", new UpdateWarehouseViewModel(await _service.GetAllIngridients(), 
-                                                               await _service.GetAllProviders(), 
+            return View("Update", new UpdateWarehouseViewModel(await _ingridientService.GetAll(), 
+                                                               await _providerService.GetAll(), 
                                                                await _service.GetWarehouseById(id)));
         }
 
