@@ -11,7 +11,13 @@ namespace Cafe.Web.Services
 
         public async Task<IEnumerable<Profession>> GetAll()
         {
-            return await _mediator.Send(new GetAllProfessionsCommand());
+            IEnumerable<Profession> professions;
+            if(!_cache.TryGetValue("professions", out professions))
+            {
+                professions = await _mediator.Send(new GetAllProfessionsCommand());
+                _cache.Set("professions", professions.ToList());
+            }
+            return professions;
         }
     }
 }
