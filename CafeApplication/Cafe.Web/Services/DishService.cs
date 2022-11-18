@@ -1,6 +1,5 @@
 ﻿using Cafe.Application.Commands.Dishes;
 using Cafe.Application.Queries.Dishes;
-using Cafe.Application.Queries.Ingridients;
 using Cafe.Domain;
 using MediatR;
 using Microsoft.Extensions.Caching.Memory;
@@ -11,15 +10,11 @@ namespace Cafe.Web.Services
     {
         public DishService(IMediator mediator, IMemoryCache cache) : base(mediator, cache) { }
 
-        public async Task<IEnumerable<Dish>> GetAllDishes()
+        public async Task<IEnumerable<Dish>> GetAll()
         {
             return await _mediator.Send(new GetAllDishesCommand());
         }
 
-        public async Task<IEnumerable<Ingridient>> GetAllIngridients()
-        {
-            return await _mediator.Send(new GetAllIngridientsCommand());
-        }
         public async Task<Dish> GetDishById(int id)
         {
             return await _mediator.Send(new GetDishByIdCommand(id));

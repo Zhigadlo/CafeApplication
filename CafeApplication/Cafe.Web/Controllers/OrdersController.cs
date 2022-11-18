@@ -8,11 +8,17 @@ namespace Cafe.Web.Controllers
 {
     public class OrdersController : BaseController<OrderService>
     {
-        public OrdersController(OrderService service) : base(service) { }
-
+        private DishService _dishService;
+        private EmployeeService _employeeService;
+        public OrdersController(OrderService orderService, DishService dishService, EmployeeService employeeService) : base(orderService) 
+        {
+            _dishService = dishService;
+            _employeeService = employeeService;
+        }
+        
         public async Task<IActionResult> Index(string name, int page = 1, OrderSortState sortOrder = OrderSortState.OrderDateAsc)
         {
-            IEnumerable<Order> orders = await _service.GetAllOrders();
+            IEnumerable<Order> orders = await _service.GetAll();
 
             if (!String.IsNullOrEmpty(name))
             {
@@ -68,7 +74,7 @@ namespace Cafe.Web.Controllers
         }
         public async Task<IActionResult> CreateView()
         {
-            return View("Create", new CreateOrderViewModel(await _service.GetAllDishes(), await _service.GetAllEmployees()));
+            return View("Create", new CreateOrderViewModel(await _dishService.GetAll(), await _employeeService.GetAll()));
         }
 
         public async Task<IActionResult> Create(string customerName, DateTime date, string phoneNumber, int paymentMethod, int employee, int[] dishIds, int[] count)
@@ -87,7 +93,7 @@ namespace Cafe.Web.Controllers
         [Route("Orders/Update/{id}")]
         public async Task<IActionResult> UpdateView(int id)
         {
-            return View("Update", new UpdateOrderViewModel(await _service.GetOrderById(id), await _service.GetAllEmployees(), await _service.GetAllDishes()));
+            return View("Update", new UpdateOrderViewModel(await _service.GetOrderById(id), await _employeeService.GetAll(), await _dishService.GetAll()));
         }
 
         [HttpPost]

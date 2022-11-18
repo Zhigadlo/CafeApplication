@@ -8,12 +8,16 @@ namespace Cafe.Web.Controllers
 {
     public class DishesController : BaseController<DishService>
     {
-        public DishesController(DishService service) : base(service) { }
+        private IngridientService _ingridientService;
+        public DishesController(DishService dishService, IngridientService ingridientService) : base(dishService) 
+        {
+            _ingridientService = ingridientService;
+        }
 
         public async Task<IActionResult> Index(string name, int page = 1, DishSortState sortOrder = DishSortState.NameAsc)
         {
-            IEnumerable<Dish> dishes = await _service.GetAllDishes();
-
+            IEnumerable<Dish> dishes = await _service.GetAll();
+            
             if (!String.IsNullOrEmpty(name))
             {
                 dishes = dishes.Where(x => x.Name.Contains(name));
@@ -64,7 +68,7 @@ namespace Cafe.Web.Controllers
 
         public async Task<IActionResult> CreateView()
         {
-            return View("Create", await _service.GetAllIngridients());
+            return View("Create", await _ingridientService.GetAll());
         }
 
         [HttpGet]
@@ -72,7 +76,7 @@ namespace Cafe.Web.Controllers
         public async Task<IActionResult> UpdateView(int id)
         {
             Dish dish = await _service.GetDishById(id);
-            IEnumerable<Ingridient> ingridients = await _service.GetAllIngridients();
+            IEnumerable<Ingridient> ingridients = await _ingridientService.GetAll();
             DishUpdateViewModel viewModel = new DishUpdateViewModel(dish, dish.IngridientsDishes, ingridients);
             return View("Update", viewModel);
         }

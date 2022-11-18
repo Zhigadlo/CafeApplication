@@ -12,19 +12,9 @@ namespace Cafe.Web.Services
     {
         public WarehouseService(IMediator mediator, IMemoryCache cache) : base(mediator, cache) { }
 
-        public async Task<IEnumerable<IngridientsWarehouse>> GetAllWarehouses()
+        public async Task<IEnumerable<IngridientsWarehouse>> GetAll()
         {
             return await _mediator.Send(new GetAllWarehousesCommand());
-        }
-
-        public async Task<IEnumerable<Provider>> GetAllProviders()
-        {
-            return await _mediator.Send(new GetAllProvidersCommand());
-        }
-
-        public async Task<IEnumerable<Ingridient>> GetAllIngridients()
-        {
-            return await _mediator.Send(new GetAllIngridientsCommand());
         }
 
         public async Task<IngridientsWarehouse> GetWarehouseById(int id)

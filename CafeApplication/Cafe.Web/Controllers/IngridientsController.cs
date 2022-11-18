@@ -15,7 +15,7 @@ namespace Cafe.Web.Controllers
         public async Task<IActionResult> Index(int? ingridient, string name, int page = 1,
                                     IngridientSortState sortOrder = IngridientSortState.NameAsc)
         {
-            IEnumerable<Ingridient> ingridients = await _service.GetAll();//_context.Ingridients;
+            IEnumerable<Ingridient> ingridients = await _service.GetAll();
 
             if (ingridient != 0 && ingridient != null)
             {

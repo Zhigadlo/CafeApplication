@@ -8,7 +8,11 @@ namespace Cafe.Web.Controllers
 {
     public class EmployeesController : BaseController<EmployeeService>
     {
-        public EmployeesController(EmployeeService service) : base(service) { }
+        private ProfessionService _professionService;
+        public EmployeesController(EmployeeService employeeService, ProfessionService professionService) : base(employeeService) 
+        {
+            _professionService = professionService;
+        }
 
         public async Task<IActionResult> Index(string firstName, string lastName, string middleName, int? profession,
                                     int page = 1, EmployeeSortState sortOrder = EmployeeSortState.AgeAsc)
@@ -80,7 +84,7 @@ namespace Cafe.Web.Controllers
             EmployeeIndexViewModel viewModel = new EmployeeIndexViewModel
             {
                 PageViewModel = pageViewModel,
-                FilterViewModel = new EmployeeFilterViewModel((await _service.GetAllProfessions()).ToList(), profession, firstName, lastName, middleName),
+                FilterViewModel = new EmployeeFilterViewModel((await _professionService.GetAll()).ToList(), profession, firstName, lastName, middleName),
                 SortViewModel = new SortEmployeeViewModel(sortOrder),
                 Items = items
             };
@@ -90,7 +94,7 @@ namespace Cafe.Web.Controllers
 
         public async Task<IActionResult> CreateView()
         {
-            return View("Create", await _service.GetAllProfessions());
+            return View("Create", await _professionService.GetAll());
         }
 
         [HttpGet]
@@ -98,7 +102,7 @@ namespace Cafe.Web.Controllers
         public async Task<IActionResult> UpdateView(int id)
         {
             var employee = await _service.GetEmployeeById(id);
-            var viewModel = new EmployeeUpdateViewModel(employee, await _service.GetAllProfessions());
+            var viewModel = new EmployeeUpdateViewModel(employee, await _professionService.GetAll());
             return View("Update", viewModel);
         }
 

@@ -35,10 +35,5 @@ namespace Cafe.Web.Services
         {
             return await _mediator.Send(new UpdateEmployeeCommand(id, employee, proffession));
         }
-
-        public async Task<IEnumerable<Profession>> GetAllProfessions()
-        {
-            return await _mediator.Send(new GetAllProfessionsCommand());
-        }
     }
 }
