@@ -232,7 +232,7 @@ namespace Cafe.Web.Middleware
             string adminName = adminEmail;
 
             string hostEmail = "host@gmail.com";
-            string hostName = "Host";
+            string hostName = hostEmail;
 
             string adminPassword = "Admin1234_";
             string hostPassword = "Host1234_";

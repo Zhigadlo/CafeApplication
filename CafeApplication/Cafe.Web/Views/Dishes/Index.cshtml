@@ -5,9 +5,9 @@
 @using Cafe.Web.Models.DishViewModels
 @model DishIndexViewModel
 <div>
-    @if (User.IsInRole("admin"))
+    @if (User.IsInRole("admin") || User.IsInRole("host"))
     {
-        <h2>@Html.ActionLink("add new dish", "CreateView", "Dishes")</h2>
+        <h2>@Html.ActionLink("add new dish", "CreateView", "Dishes",null, new { @class="btn btn-sm btn-dark" })</h2>
     }
     <form method="get">
         <label>Name: </label>
@@ -18,18 +18,18 @@
         <tr>
             <th>
                 @Html.ActionLink("Name", "Index", "Dishes", new { name=Model.FilterViewModel.SelectedName,
-                sortOrder=Model.SortViewModel.NameState})
+                sortOrder=Model.SortViewModel.NameState}, new { @class="btn btn-sm" })
             </th>
             <th>
                 @Html.ActionLink("Cost", "Index", "Dishes", new { name=Model.FilterViewModel.SelectedName,
-                sortOrder=Model.SortViewModel.CostState})
+                sortOrder=Model.SortViewModel.CostState}, new { @class="btn btn-sm" })
             </th>
             <th>
                 @Html.ActionLink("Cooking time(minutes)", "Index", "Dishes", new { name=Model.FilterViewModel.SelectedName,
-                sortOrder=Model.SortViewModel.CookingTimeState})
+                sortOrder=Model.SortViewModel.CookingTimeState}, new { @class="btn btn" })
             </th>
             <th></th>
-            @if(@User.IsInRole("admin"))
+            @if(User.IsInRole("admin") || User.IsInRole("host"))
             {
                 <th></th>
                 <th></th>
@@ -41,11 +41,11 @@
                 <td>@item.Name</td>
                 <td>@item.Cost</td>
                 <td>@item.CookingTime</td>
-                <td>@Html.ActionLink("details", "Description", "Dishes", new { id=item.Id })</td>
-                @if (User.IsInRole("admin"))
+                <td>@Html.ActionLink("details", "Description", "Dishes", new { id=item.Id }, new { @class="btn btn-sm btn-info" })</td>
+                @if (User.IsInRole("admin") || User.IsInRole("host"))
                 {
-                    <td>@Html.ActionLink("change", "Update", "Dishes", new { id=item.Id })</td>
-                    <td>@Html.ActionLink("delete", "Delete", "Dishes", new { id=item.Id })</td>
+                    <td>@Html.ActionLink("change", "Update", "Dishes", new { id=item.Id }, new { @class="btn btn-sm btn-primary" })</td>
+                    <td>@Html.ActionLink("delete", "Delete", "Dishes", new { id=item.Id }, new { @class="btn btn-sm btn-danger" })</td>
                 }
             </tr>
         }
