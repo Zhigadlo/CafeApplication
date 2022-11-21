@@ -30,9 +30,11 @@ builder.Services.AddTransient<WarehouseService>();
 builder.Services.AddMediatR(typeof(ICafeDbContext).Assembly);
 builder.Services.AddResponseCaching();
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
+app.UseSession();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -49,6 +51,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseMiddleware<InitializeDataMiddleware>();
+
 
 app.UseRouting();
 

@@ -13,7 +13,7 @@ namespace Cafe.Web.Models.EmployeeViewModels
 
         public EmployeeFilterViewModel(List<Profession> professions, int? selectedProfession, string selectedFirstName, string selectedLastName, string selectedMiddleName)
         {
-            professions.Insert(0, new Profession { Name = "All", Id = 0 });
+            professions.Insert(0, new Profession { Name = "All", Id = -1 });
             Professions = new SelectList(professions, "Id", "Name", selectedProfession);
             SelectedProfession = selectedProfession;
             SelectedFirstName = selectedFirstName;

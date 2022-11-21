@@ -16,15 +16,13 @@ namespace Cafe.Web.Controllers
             _employeeService = employeeService;
         }
 
-        public async Task<IActionResult> Index(string name, int page = 1, OrderSortState sortOrder = OrderSortState.OrderDateAsc)
+        public async Task<IActionResult> Index(string? name, int page = 1, OrderSortState sortOrder = OrderSortState.OrderDateAsc)
         {
             IEnumerable<Order> orders = await _service.GetAll();
 
-            if (!String.IsNullOrEmpty(name))
-            {
-                orders = orders.Where(x => x.CustomerName.Contains(name));
-            }
-
+            name = GetStringFromSession("customername", name);
+            orders = orders.Where(x => x.CustomerName.Contains(name));
+            
             switch (sortOrder)
             {
                 case OrderSortState.CustomerNameDesc:

@@ -18,19 +18,27 @@ namespace Cafe.Web.Controllers
             _ingridientService = ingridientService;
         }
 
-        public async Task<IActionResult> Index(string ingridient, int? provider, int page = 1,
+        public async Task<IActionResult> Index(string? ingridient, int? provider, int page = 1,
                                     WarehouseSortState sortOrder = WarehouseSortState.StorageLifeAsc)
         {
             IEnumerable<IngridientsWarehouse> warehouses = await _service.GetAll(); ;
 
-            if (provider != 0 && provider != null)
+            if (provider != null)
             {
+                HttpContext.Session.SetInt32("providerid", (int)provider);
+            }
+            else
+            {
+                provider = HttpContext.Session.Keys.Contains("providerid")
+                         ? HttpContext.Session.GetInt32("providerid") : -1;
+            }
+
+            if (provider != -1)
                 warehouses = warehouses.Where(x => x.ProviderId == provider);
-            }
-            if (!String.IsNullOrEmpty(ingridient))
-            {
-                warehouses = warehouses.Where(x => x.Ingridient.Name.Contains(ingridient));
-            }
+            
+
+            ingridient = GetStringFromSession("warehouseingridient", ingridient);
+            warehouses = warehouses.Where(x => x.Ingridient.Name.Contains(ingridient));
 
             switch (sortOrder)
             {
@@ -81,7 +89,7 @@ namespace Cafe.Web.Controllers
             {
                 PageViewModel = pageViewModel,
                 Items = items,
-                FilterViewModel = new FilterWarehouseViewModel((await _providerService.GetAll()), provider, ingridient),
+                FilterViewModel = new FilterWarehouseViewModel((await _providerService.GetAll()).ToList(), provider, ingridient),
                 SortViewModel = new SortWarehouseViewModel(sortOrder)
             };
             return View(viewModel);

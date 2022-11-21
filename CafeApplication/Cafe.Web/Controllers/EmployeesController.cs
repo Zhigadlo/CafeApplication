@@ -14,26 +14,56 @@ namespace Cafe.Web.Controllers
             _professionService = professionService;
         }
 
-        public async Task<IActionResult> Index(string firstName, string lastName, string middleName, int? profession,
+        public async Task<IActionResult> Index(string? firstName, string? lastName, string? middleName, int? profession,
                                     int page = 1, EmployeeSortState sortOrder = EmployeeSortState.AgeAsc)
         {
             IEnumerable<Employee> employees = await _service.GetAll();
-            if (profession != 0 && profession != null)
+
+            if (profession != null)
             {
-                employees = employees.Where(x => x.Profession.Id == profession);
+                HttpContext.Session.SetInt32("employeeprofession", (int)profession);
             }
+            else
+            {
+                profession = HttpContext.Session.Keys.Contains("employeeprofession") 
+                           ? HttpContext.Session.GetInt32("employeeprofession") : -1;
+            }
+            if (profession != -1)
+                employees = employees.Where(x => x.Profession.Id == profession);
+
             if (!String.IsNullOrEmpty(firstName))
             {
-                employees = employees.Where(x => x.FirstName.Contains(firstName));
+                HttpContext.Session.SetString("employeefirstname", firstName);
+            }
+            else
+            {
+                firstName = HttpContext.Session.Keys.Contains("employeefirstname") 
+                          ? HttpContext.Session.GetString("employeefirstname") : "";
             }
             if (!String.IsNullOrEmpty(lastName))
             {
-                employees = employees.Where(x => x.LastName.Contains(lastName));
+                HttpContext.Session.SetString("employeelastname", lastName);
+            }
+            else
+            {
+                lastName = HttpContext.Session.Keys.Contains("employeelastname") 
+                         ? HttpContext.Session.GetString("employeelastname") : "";
             }
             if (!String.IsNullOrEmpty(middleName))
             {
-                employees = employees.Where(x => x.MiddleName.Contains(middleName));
+                HttpContext.Session.SetString("employeemiddlename", middleName);
             }
+            else
+            {
+                middleName = HttpContext.Session.Keys.Contains("employeemiddlename")
+                           ? HttpContext.Session.GetString("employeemiddlename") : "";
+                string sessionMiddleName = HttpContext.Session.GetString("employeemiddlename");
+                middleName = sessionMiddleName == null ? "" : sessionMiddleName;
+            }
+
+            employees = employees.Where(x => x.FirstName.Contains(firstName) 
+                                          && x.LastName.Contains(lastName)
+                                          && x.MiddleName.Contains(middleName));
 
             switch (sortOrder)
             {

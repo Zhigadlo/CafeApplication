@@ -1,8 +1,10 @@
-﻿using Cafe.Domain;
+﻿using Azure.Core;
+using Cafe.Domain;
 using Cafe.Web.Models;
 using Cafe.Web.Models.DishViewModels;
 using Cafe.Web.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Cafe.Web.Controllers
 {
@@ -18,10 +20,8 @@ namespace Cafe.Web.Controllers
         {
             IEnumerable<Dish> dishes = await _service.GetAll();
 
-            if (!String.IsNullOrEmpty(name))
-            {
-                dishes = dishes.Where(x => x.Name.Contains(name));
-            }
+            name = GetStringFromSession("dishname", name);
+            dishes = dishes.Where(x => x.Name.Contains(name));
 
             switch (sortOrder)
             {

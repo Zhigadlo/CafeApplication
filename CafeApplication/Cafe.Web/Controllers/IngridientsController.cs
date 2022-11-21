@@ -12,19 +12,25 @@ namespace Cafe.Web.Controllers
         {
         }
 
-        public async Task<IActionResult> Index(int? ingridient, string name, int page = 1,
+        public async Task<IActionResult> Index(int? ingridient, string? name, int page = 1,
                                     IngridientSortState sortOrder = IngridientSortState.NameAsc)
         {
             IEnumerable<Ingridient> ingridients = await _service.GetAll();
 
-            if (ingridient != 0 && ingridient != null)
+            if (ingridient != null)
             {
+                HttpContext.Session.SetInt32("ingridient", (int)ingridient);
+            }
+            else
+            {
+                ingridient = HttpContext.Session.Keys.Contains("ingridient")
+                           ? HttpContext.Session.GetInt32("ingridient") : -1;
+            }
+            if(ingridient != -1)
                 ingridients = ingridients.Where(x => x.Id == ingridient);
-            }
-            if (!String.IsNullOrEmpty(name))
-            {
-                ingridients = ingridients.Where(x => x.Name.Contains(name));
-            }
+
+            name = GetStringFromSession("ingridintname", name);
+            ingridients = ingridients.Where(x => x.Name.Contains(name));    
 
             switch (sortOrder)
             {
