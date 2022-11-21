@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Provider create";
+}
+@using (Html.BeginForm("Create", "Providers"))
+{
+        <h3>New provider adding</h3>
+        <p>
+            <label>Name</label><br />
+            <input type="text" name="Name" required />
+        </p>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+}
