@@ -20,7 +20,8 @@ namespace Cafe.Web.Controllers
         {
             IEnumerable<Order> orders = await _service.GetAll();
 
-            name = GetStringFromSession("customername", name);
+            name = GetStringFromSession(HttpContext, "customername", "name");
+            HttpContext.Session.SetString("customername", name);
             orders = orders.Where(x => x.CustomerName.Contains(name));
             
             switch (sortOrder)

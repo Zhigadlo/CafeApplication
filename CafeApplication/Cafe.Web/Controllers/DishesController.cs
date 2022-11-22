@@ -1,9 +1,11 @@
 ﻿using Azure.Core;
 using Cafe.Domain;
+using Cafe.Web.Infrastrcture;
 using Cafe.Web.Models;
 using Cafe.Web.Models.DishViewModels;
 using Cafe.Web.Services;
 using Microsoft.AspNetCore.Mvc;
+using Cafe.Web.Infrastrcture;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Cafe.Web.Controllers
@@ -15,12 +17,13 @@ namespace Cafe.Web.Controllers
         {
             _ingridientService = ingridientService;
         }
-
-        public async Task<IActionResult> Index(string name, int page = 1, DishSortState sortOrder = DishSortState.NameAsc)
+        
+        public async Task<IActionResult> Index(int page = 1, DishSortState sortOrder = DishSortState.NameAsc)
         {
             IEnumerable<Dish> dishes = await _service.GetAll();
 
-            name = GetStringFromSession("dishname", name);
+            string name = GetStringFromSession(HttpContext, "dishname", "name");
+            HttpContext.Session.SetString("dishname", name);
             dishes = dishes.Where(x => x.Name.Contains(name));
 
             switch (sortOrder)

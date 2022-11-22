@@ -15,7 +15,8 @@ namespace Cafe.Web.Controllers
         {
             IEnumerable<Provider> providers = await _service.GetAll();
 
-            name = GetStringFromSession("provider", name);
+            name = GetStringFromSession(HttpContext, "provider", "name");
+            HttpContext.Session.SetString("provider", name);
             providers = providers.Where(x => x.Name.Contains(name));
 
             switch (sortOrder)

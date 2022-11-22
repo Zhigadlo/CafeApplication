@@ -1,4 +1,5 @@
-﻿using Cafe.Domain;
+﻿using Azure.Core;
+using Cafe.Domain;
 using Cafe.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,22 +13,18 @@ namespace Cafe.Web.Controllers
 
         public BaseController(T service) => _service = service;
 
-        protected string GetStringFromSession(string key, string value = null, string defaultValue = "")
+        protected string GetStringFromSession(HttpContext context, string key, string queryName, string defaultValue = "")
         {
-            if(value != null) 
+            if (context.Request.Query[queryName].Count() > 0)
             {
-                HttpContext.Session.SetString(key, value);
-                return value;
+                return context.Request.Query[queryName][0];
             }
-            else if(HttpContext.Session.GetString(key) != null)
+            else if (context.Session.GetString(key) != null)
             {
-                value = HttpContext.Session?.GetString(key);
-                HttpContext.Session.SetString(key, value);
-                return value;
+                return context.Session.GetString(key);
             }
             else
             {
-                HttpContext.Session.SetString(key, defaultValue);
                 return defaultValue;
             }
         }

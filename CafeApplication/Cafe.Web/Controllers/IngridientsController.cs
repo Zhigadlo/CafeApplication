@@ -29,7 +29,8 @@ namespace Cafe.Web.Controllers
             if(ingridient != -1)
                 ingridients = ingridients.Where(x => x.Id == ingridient);
 
-            name = GetStringFromSession("ingridintname", name);
+            name = GetStringFromSession(HttpContext, "ingridientname", "name");
+            HttpContext.Session.SetString("ingridientname", name);
             ingridients = ingridients.Where(x => x.Name.Contains(name));    
 
             switch (sortOrder)
