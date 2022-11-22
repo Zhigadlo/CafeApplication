@@ -18,7 +18,7 @@ namespace Cafe.Web.Controllers
             _ingridientService = ingridientService;
         }
 
-        public async Task<IActionResult> Index(string? ingridient, int? provider, int page = 1,
+        public async Task<IActionResult> Index(int? provider, int page = 1,
                                     WarehouseSortState sortOrder = WarehouseSortState.StorageLifeAsc)
         {
             IEnumerable<IngridientsWarehouse> warehouses = await _service.GetAll(); ;
@@ -35,9 +35,9 @@ namespace Cafe.Web.Controllers
 
             if (provider != -1)
                 warehouses = warehouses.Where(x => x.ProviderId == provider);
-            
 
-            ingridient = GetStringFromSession(HttpContext, "warehouseingridient", "ingridient");
+
+            string ingridient = GetStringFromSession(HttpContext, "warehouseingridient", "ingridient");
             HttpContext.Session.SetString("warehouseingridient", ingridient);
             warehouses = warehouses.Where(x => x.Ingridient.Name.Contains(ingridient));
 

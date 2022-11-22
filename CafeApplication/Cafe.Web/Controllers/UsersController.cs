@@ -39,7 +39,7 @@ namespace Cafe.Web.Controllers
                     user.UserName = model.Email;
 
                     var result = await _userManager.UpdateAsync(user);
-                    
+
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Index");

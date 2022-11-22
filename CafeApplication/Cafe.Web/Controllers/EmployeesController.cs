@@ -14,7 +14,7 @@ namespace Cafe.Web.Controllers
             _professionService = professionService;
         }
 
-        public async Task<IActionResult> Index(int? profession, int page = 1, 
+        public async Task<IActionResult> Index(int? profession, int page = 1,
                                        EmployeeSortState sortOrder = EmployeeSortState.AgeAsc)
         {
             IEnumerable<Employee> employees = await _service.GetAll();
@@ -25,7 +25,7 @@ namespace Cafe.Web.Controllers
             }
             else
             {
-                profession = HttpContext.Session.Keys.Contains("employeeprofession") 
+                profession = HttpContext.Session.Keys.Contains("employeeprofession")
                            ? HttpContext.Session.GetInt32("employeeprofession") : -1;
             }
             if (profession != -1)
@@ -38,7 +38,7 @@ namespace Cafe.Web.Controllers
             string middleName = GetStringFromSession(HttpContext, "employeemiddlename", "middleName");
             HttpContext.Session.SetString("employeemiddlename", middleName);
 
-            employees = employees.Where(x => x.FirstName.Contains(firstName) 
+            employees = employees.Where(x => x.FirstName.Contains(firstName)
                                           && x.LastName.Contains(lastName)
                                           && x.MiddleName.Contains(middleName));
 

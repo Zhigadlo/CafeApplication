@@ -1,5 +1,5 @@
-﻿using MediatR;
-using Cafe.Domain;
+﻿using Cafe.Domain;
+using MediatR;
 
 namespace Cafe.Application.Queries.Providers
 {

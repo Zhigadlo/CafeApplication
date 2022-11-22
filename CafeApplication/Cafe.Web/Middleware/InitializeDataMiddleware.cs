@@ -240,7 +240,7 @@ namespace Cafe.Web.Middleware
             {
                 await roleManager.CreateAsync(new IdentityRole("admin"));
             }
-            if(await roleManager.FindByNameAsync("host") == null)
+            if (await roleManager.FindByNameAsync("host") == null)
             {
                 await roleManager.CreateAsync(new IdentityRole("host"));
             }

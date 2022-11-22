@@ -1,8 +1,8 @@
 ﻿using Cafe.Domain;
 using Cafe.Web.Models;
+using Cafe.Web.Models.ProviderViewModels;
 using Cafe.Web.Services;
 using Microsoft.AspNetCore.Mvc;
-using Cafe.Web.Models.ProviderViewModels;
 
 namespace Cafe.Web.Controllers
 {
@@ -10,12 +10,12 @@ namespace Cafe.Web.Controllers
     {
         public ProvidersController(ProviderService service) : base(service) { }
 
-        public async Task<IActionResult> Index(string? name, int page = 1,
+        public async Task<IActionResult> Index(int page = 1,
                                     ProviderSortState sortOrder = ProviderSortState.NameAsc)
         {
             IEnumerable<Provider> providers = await _service.GetAll();
 
-            name = GetStringFromSession(HttpContext, "provider", "name");
+            string name = GetStringFromSession(HttpContext, "provider", "name");
             HttpContext.Session.SetString("provider", name);
             providers = providers.Where(x => x.Name.Contains(name));
 

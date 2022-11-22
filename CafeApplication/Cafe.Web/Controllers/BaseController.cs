@@ -1,9 +1,5 @@
-﻿using Azure.Core;
-using Cafe.Domain;
-using Cafe.Web.Services;
-using Microsoft.AspNetCore.Identity;
+﻿using Cafe.Web.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Cafe.Web.Controllers
 {
