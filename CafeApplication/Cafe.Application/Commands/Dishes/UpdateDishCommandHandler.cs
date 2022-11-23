@@ -10,10 +10,8 @@ namespace Cafe.Application.Commands.Dishes
         public UpdateDishCommandHandler(ICafeDbContext context) : base(context) { }
         public async Task<Dish> Handle(UpdateDishCommand command, CancellationToken cancellationToken)
         {
-            var dishForUpdate = _context.Dishes.Include(x => x.IngridientsDishes).First(d => d.Id == command.Id);
-            dishForUpdate.Name = command.Name;
-            dishForUpdate.Cost = command.Cost;
-            dishForUpdate.CookingTime = command.CookingTime;
+            var dishForUpdate = command.Dish;
+            dishForUpdate.Id = command.Id;
             for (int i = 0; i < command.IngridientIds.Length; i++)
             {
                 var ingridientDish = _context.IngridientsDishes.FirstOrDefault(x => x.IngridientId == command.IngridientIds[i] && x.DishId == dishForUpdate.Id);

@@ -24,10 +24,10 @@ namespace Cafe.Web.Services
         {
             return await _mediator.Send(new GetIngridientByIdCommand(id));
         }
-        public async Task CreateIngridient(string name)
+        public async Task CreateIngridient(Ingridient ingridient)
         {
             CacheClear();
-            await _mediator.Send(new AddIngridientCommand(name));
+            await _mediator.Send(new AddIngridientCommand(ingridient));
         }
 
         public async Task Delete(int id)
@@ -36,9 +36,9 @@ namespace Cafe.Web.Services
             await _mediator.Send(new DeleteIngridientCommand(id));
         }
 
-        public async Task Update(int id, string name)
+        public async Task Update(int id, Ingridient ingridient)
         {
-            var command = new UpdateIngridientCommand(id, name);
+            var command = new UpdateIngridientCommand(id, ingridient);
             await _mediator.Send(command);
             CacheClear();
         }

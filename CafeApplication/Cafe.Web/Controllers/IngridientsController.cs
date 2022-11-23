@@ -1,6 +1,7 @@
 ﻿using Cafe.Domain;
 using Cafe.Web.Models;
 using Cafe.Web.Models.IngridientViewModels;
+using Cafe.Web.Models.Validators;
 using Cafe.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -77,18 +78,37 @@ namespace Cafe.Web.Controllers
             Ingridient ingridient = await _service.GetIngridientById(id);
             return View("Update", ingridient);
         }
-        public async Task<IActionResult> Create(string name)
+        public async Task<IActionResult> Create(Ingridient ingridient)
         {
-            await _service.CreateIngridient(name);
-            return RedirectToAction("Index");
+            IngridientValidator validator = new IngridientValidator();
+            var result = validator.Validate(ingridient);
+            if (result.IsValid)
+            {
+                await _service.CreateIngridient(ingridient);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
+            }
         }
 
         [HttpPost]
         [Route("Ingridients/Update/{id}")]
-        public async Task<IActionResult> Update(int id, string name)
+        public async Task<IActionResult> Update(int id, Ingridient ingridient)
         {
-            await _service.Update(id, name);
-            return RedirectToAction("Index");
+            ingridient.Id = id;
+            IngridientValidator validator = new IngridientValidator();
+            var result = validator.Validate(ingridient);
+            if(result.IsValid)
+            {
+                await _service.Update(id, ingridient);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() }) ;
+            }
         }
     }
 }

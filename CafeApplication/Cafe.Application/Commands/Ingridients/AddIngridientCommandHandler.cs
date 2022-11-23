@@ -10,7 +10,7 @@ namespace Cafe.Application.Commands.Ingridients
 
         public async Task<Ingridient> Handle(AddIngridientCommand command, CancellationToken cancellationToken)
         {
-            Ingridient ingridient = new Ingridient { Name = command.Name };
+            Ingridient ingridient = command.Ingridient;
 
             await _context.Ingridients.AddAsync(ingridient);
             await _context.Save();
