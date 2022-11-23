@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Order update";
 }
-@using (Html.BeginForm("UpdateView", "Orders", FormMethod.Post))
+@using (Html.BeginForm("UpdateView", "Orders", FormMethod.Post, new { id="updateForm"}))
 {
     <h3>Order updating</h3>
     <p>
@@ -40,7 +40,7 @@
     </p>
     <p>
         <label>IsCompleted</label>
-        <select name="IsComplete">
+        <select name="IsCompleted">
             @if (Model.IsComplete == 0)
             {
                 <option value="0" selected>false</option>
@@ -77,3 +77,24 @@
         <input type="submit" value="Update" />
     </p>
 }
+
+<script>
+    $("#updateForm").validate({
+        rules:{
+            CustomerName: {
+                required: true
+            },
+            OrderDate: {
+                required: true
+            },
+            CustomerPhoneNumber: {
+                required: true
+            }
+        },
+        messages: {
+            CustomerName: "<h5 class=\"text-danger\">Enter customer name</h5>",
+            OrderDate: "<h5 class=\"text-danger\">Pick order date</h5>",
+            CustomerPhoneNumber: "<h5 class=\"text-danger\">Enter phone number</h5>"
+        }
+    })
+</script>

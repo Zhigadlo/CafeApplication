@@ -5,8 +5,8 @@ namespace Cafe.Web.Models.Validators
 {
     public class OrderValidator : AbstractValidator<Order>
     {
-        public OrderValidator() 
-        { 
+        public OrderValidator()
+        {
             RuleFor(order => order.IsCompleted).NotNull()
                                                .WithMessage("Is completed must be not null");
             RuleFor(order => order.CustomerName).NotEmpty()

@@ -3,7 +3,7 @@
 }
 @using Cafe.Web.Models.OrderViewModels;
 @model CreateOrderViewModel;
-@using (Html.BeginForm("Create", "Orders"))
+@using (Html.BeginForm("Create", "Orders", FormMethod.Post, new { id="addForm" }))
 {
     <h3>New order adding</h3>
     <p>
@@ -16,7 +16,7 @@
     </p>
     <p>
         <label>Customer phone number</label><br />
-        <input type="text" name="CustomerPhoneNumber" required />
+        <input id="phoneNumber"type="text" name="CustomerPhoneNumber" required />
     </p>
     <p>
         <label>Payment method</label>
@@ -44,3 +44,24 @@
         <input type="submit" value="Create" />
     </p>
 }
+
+<script>
+    $("#addForm").validate({
+        rules:{
+            CustomerName: {
+                required: true
+            },
+            OrderDate: {
+                required: true
+            },
+            CustomerPhoneNumber: {
+                required: true
+            }
+        },
+        messages: {
+            CustomerName: "<h5 class=\"text-danger\">Enter customer name</h5>",
+            OrderDate: "<h5 class=\"text-danger\">Pick order date</h5>",
+            CustomerPhoneNumber: "<h5 class=\"text-danger\">Enter phone number</h5>"
+        }
+    })
+</script>

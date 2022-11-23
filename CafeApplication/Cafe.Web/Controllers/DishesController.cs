@@ -10,7 +10,7 @@ namespace Cafe.Web.Controllers
     public class DishesController : BaseController<DishService>
     {
         private IngridientService _ingridientService;
-        
+
         public DishesController(DishService dishService, IngridientService ingridientService) : base(dishService)
         {
             _ingridientService = ingridientService;
@@ -93,9 +93,9 @@ namespace Cafe.Web.Controllers
             }
             else
             {
-                return RedirectToAction("Error", "Home", new { errors=result.Errors.Select(e => e.ErrorMessage).ToArray() });
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
             }
-            
+
         }
 
         public async Task<IActionResult> Description(int id)

@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Provider create";
 }
-@using (Html.BeginForm("Create", "Providers"))
+@using (Html.BeginForm("Create", "Providers", FormMethod.Post, new { id="addForm"}))
 {
         <h3>New provider adding</h3>
         <p>
@@ -12,3 +12,16 @@
             <input type="submit" value="Create" />
         </p>
 }
+
+<script>
+    $("#addForm").validate({
+        rules:{
+            Name: {
+                required: true
+            }
+        },
+        messages: {
+            Name: "<h5 class=\"text-danger\">Enter name</h5>"
+        }
+    })
+</script>

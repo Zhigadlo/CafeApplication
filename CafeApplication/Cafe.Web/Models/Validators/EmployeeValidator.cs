@@ -5,7 +5,7 @@ namespace Cafe.Web.Models.Validators
 {
     public class EmployeeValidator : AbstractValidator<Employee>
     {
-        public EmployeeValidator() 
+        public EmployeeValidator()
         {
             RuleFor(employee => employee.FirstName).NotEmpty()
                                                    .NotNull()

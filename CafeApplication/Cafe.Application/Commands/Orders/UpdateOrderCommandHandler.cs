@@ -1,7 +1,6 @@
 ﻿using Cafe.Application.Interfaces;
 using Cafe.Domain;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Application.Commands.Orders
 {

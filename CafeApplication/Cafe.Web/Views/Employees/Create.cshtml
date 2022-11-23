@@ -3,7 +3,7 @@
 }
 @using Cafe.Domain
 @model IEnumerable<Profession>
-@using (Html.BeginForm("Create", "Employees"))
+@using (Html.BeginForm("Create", "Employees", FormMethod.Post, new { id="addForm"}))
 {
     <h3>New employee adding</h3>
     <p>
@@ -16,7 +16,7 @@
     </p>
     <p>
         <label>Middle name</label><br />
-        <input type="text" name="MiddleName" required />
+        <input type="text" name="MiddleName" />
     </p>
     <p>
         <label>Age</label><br />
@@ -24,7 +24,7 @@
     </p>
     <p>
         <label>Education</label><br />
-        <input type="text" name="Education" required />
+        <input type="text" name="Education" />
     </p>
     <p>
         <label>Profession</label><br />
@@ -34,3 +34,34 @@
         <input type="submit" value="Create" />
     </p>
 }
+
+<script>
+    $("#addForm").validate({
+        rules: {
+            FirstName: {
+                required: true
+            },
+            LastName: {
+                required: true
+            },
+            MiddleName:{
+                required: true
+            },
+            Age: {
+                required: true,
+                min: 18,
+                max: 65
+            },
+            Education:{
+                required: true
+            }
+        },
+        messages: {
+            FirstName: "<h5 class=\"text-danger\">Enter first name</h5>",
+            LastName: "<h5 class=\"text-danger\">Enter last name</h5>",
+            MiddleName: "<h5 class=\"text-danger\">Enter middle name</h5>",
+            Age: "<h5 class=\"text-danger\">Enter age between 18 and 65</h5>",
+            Education: "<h5 class=\"text-danger\">Enter education</h5>"
+        }
+    })
+</script>

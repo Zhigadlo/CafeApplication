@@ -1,6 +1,5 @@
 ﻿using Cafe.Domain;
 using FluentValidation;
-using System.Data;
 
 namespace Cafe.Web.Models.Validators
 {
@@ -19,7 +18,7 @@ namespace Cafe.Web.Models.Validators
             RuleFor(dish => dish.CookingTime).NotNull()
                                              .NotEmpty()
                                              .Must(c => c >= 0)
-                                             .WithMessage("Dish cooking time must be not empty");                  
+                                             .WithMessage("Dish cooking time must be not empty");
         }
     }
 }

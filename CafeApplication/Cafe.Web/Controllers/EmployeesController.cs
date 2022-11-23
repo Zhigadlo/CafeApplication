@@ -120,14 +120,14 @@ namespace Cafe.Web.Controllers
         {
             EmployeeValidator validator = new EmployeeValidator();
             var result = validator.Validate(employee);
-            if(result.IsValid)
+            if (result.IsValid)
             {
                 await _service.Update(id, employee, profession);
                 return RedirectToAction("Index");
             }
             else
             {
-                return RedirectToAction("Error", "Home", new { errors=result.Errors.Select(e => e.ErrorMessage).ToArray() });
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
             }
         }
 
@@ -149,7 +149,7 @@ namespace Cafe.Web.Controllers
             {
                 return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
             }
-            
+
         }
     }
 }

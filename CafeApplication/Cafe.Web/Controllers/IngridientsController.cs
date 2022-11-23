@@ -100,14 +100,14 @@ namespace Cafe.Web.Controllers
             ingridient.Id = id;
             IngridientValidator validator = new IngridientValidator();
             var result = validator.Validate(ingridient);
-            if(result.IsValid)
+            if (result.IsValid)
             {
                 await _service.Update(id, ingridient);
                 return RedirectToAction("Index");
             }
             else
             {
-                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() }) ;
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
             }
         }
     }

@@ -108,7 +108,7 @@ namespace Cafe.Web.Controllers
         {
             WarehouseValidator validator = new WarehouseValidator();
             var result = validator.Validate(warehouse);
-            if(result.IsValid)
+            if (result.IsValid)
             {
                 await _service.Create(warehouse);
                 return RedirectToAction("Index");

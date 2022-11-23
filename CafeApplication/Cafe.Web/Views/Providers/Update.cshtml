@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Provider update";
 }
-@using (Html.BeginForm("UpdateView", "Providers", FormMethod.Post))
+@using (Html.BeginForm("UpdateView", "Providers", FormMethod.Post, new { id="updateForm" }))
 {
         <h3>Ingridient update</h3>
         <p>
@@ -14,3 +14,16 @@
             <input type="submit" value="Update">
         </p>
 }
+
+<script>
+    $("#updateForm").validate({
+        rules:{
+            Name: {
+                required: true
+            }
+        },
+        messages: {
+            Name: "<h5 class=\"text-danger\">Enter name</h5>"
+        }
+    })
+</script>

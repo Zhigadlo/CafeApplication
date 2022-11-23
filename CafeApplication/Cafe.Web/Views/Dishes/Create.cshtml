@@ -3,20 +3,20 @@
 }
 @using Cafe.Domain
 @model IEnumerable<Ingridient>
-@using (Html.BeginForm("Create", "Dishes"))
+@using (Html.BeginForm("Create", "Dishes", FormMethod.Post, new { id="addForm"}))
 {
     <h3>New dish adding</h3>
     <p>
         <label>Name</label><br />
-        <input type="text" name="name" required />
+        <input type="text" name="Name" required />
     </p>
     <p>
         <label>Cost</label><br />
-        <input type="number" name="cost" required />
+        <input type="number" name="Cost" required />
     </p>
     <p>
         <label>CookingTime</label><br />
-        <input type="number" name="cookingTime" required />
+        <input type="number" name="CookingTime" required />
     </p>
     <p>
         <label>Ingridients</label><br />
@@ -34,3 +34,26 @@
         <input type="submit" value="Create" />
     </p>
 }
+
+<script>
+    $("#addForm").validate({
+        rules: {
+            Name: {
+                required: true
+            },
+            Cost: {
+                required: true,
+                min: 1
+            },
+            CookingTime: {
+                required: true,
+                min: 0
+            }
+        },
+        messages: {
+            Name: "<h5 class=\"text-danger\">Enter name</h5>",
+            Cost: "<h5 class=\"text-danger\">Enter cost</h5>",
+            CookingTime: "<h5 class=\"text-danger\">Enter cooking time</h5>"
+        }
+    })
+</script>

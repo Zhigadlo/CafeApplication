@@ -5,7 +5,7 @@ namespace Cafe.Web.Models.Validators
 {
     public class WarehouseValidator : AbstractValidator<IngridientsWarehouse>
     {
-        public WarehouseValidator() 
+        public WarehouseValidator()
         {
             RuleFor(warehouse => warehouse.Cost).NotEmpty()
                                                 .NotNull()
