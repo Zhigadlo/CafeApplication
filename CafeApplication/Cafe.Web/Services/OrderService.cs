@@ -26,10 +26,10 @@ namespace Cafe.Web.Services
             return await _mediator.Send(new GetOrderByIdCommand(id));
         }
 
-        public async Task<Order> Create(string customerName, DateTime date, string phoneNumber, int paymentMethod, int employee, int[] dishIds, int[] count)
+        public async Task<Order> Create(Order order, int employee, int[] dishIds, int[] count)
         {
             CacheClear();
-            return await _mediator.Send(new CreateOrderCommand(customerName, date, phoneNumber, paymentMethod, employee, dishIds, count));
+            return await _mediator.Send(new CreateOrderCommand(order, employee, dishIds, count));
         }
 
         public async Task<Order> Delete(int id)
@@ -38,11 +38,10 @@ namespace Cafe.Web.Services
             return await _mediator.Send(new DeleteOrderCommand(id));
         }
 
-        public async Task<Order> Update(int id, string customerName, DateTime date, string phoneNumber, int paymentMethod,
-                                     int isComplete, int employee, int[] dishIds, int[] count)
+        public async Task<Order> Update(int id, Order order, int employee, int[] dishIds, int[] count)
         {
             CacheClear();
-            return await _mediator.Send(new UpdateOrderCommand(id, customerName, date, phoneNumber, paymentMethod, isComplete, employee, dishIds, count));
+            return await _mediator.Send(new UpdateOrderCommand(id, order, employee, dishIds, count));
         }
     }
 }

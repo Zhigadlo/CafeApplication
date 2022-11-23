@@ -11,13 +11,9 @@ namespace Cafe.Application.Commands.Orders
 
         public async Task<Order> Handle(UpdateOrderCommand command, CancellationToken cancellationToken)
         {
-            var orderForUpdate = _context.Orders.Include(x => x.OrderDishes).First(d => d.Id == command.Id);
-            orderForUpdate.OrderDate = command.Date;
+            var orderForUpdate = command.Order;
+            orderForUpdate.Id = command.Id;
             orderForUpdate.Employee = _context.Employees.First(e => e.Id == command.Employee);
-            orderForUpdate.CustomerPhoneNumber = command.PhoneNumber;
-            orderForUpdate.CustomerName = command.CustomerName;
-            orderForUpdate.PaymentMethod = command.PaymentMethod;
-            orderForUpdate.IsCompleted = command.IsComplete;
             for (int i = 0; i < command.DishIds.Length; i++)
             {
                 var orderDish = _context.OrderDishes.FirstOrDefault(x => x.DishId == command.DishIds[i] && x.OrderId == orderForUpdate.Id);
