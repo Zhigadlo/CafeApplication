@@ -1,6 +1,7 @@
 ﻿using Cafe.Domain;
 using Cafe.Web.Models;
 using Cafe.Web.Models.EmployeeViewModels;
+using Cafe.Web.Models.Validators;
 using Cafe.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -117,8 +118,17 @@ namespace Cafe.Web.Controllers
         [Route("Employees/Update/{id}")]
         public async Task<IActionResult> Update(int id, Employee employee, string profession)
         {
-            await _service.Update(id, employee, profession);
-            return RedirectToAction("Index");
+            EmployeeValidator validator = new EmployeeValidator();
+            var result = validator.Validate(employee);
+            if(result.IsValid)
+            {
+                await _service.Update(id, employee, profession);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors=result.Errors.Select(e => e.ErrorMessage).ToArray() });
+            }
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -128,8 +138,18 @@ namespace Cafe.Web.Controllers
         }
         public async Task<IActionResult> Create(Employee employee, string profession)
         {
-            await _service.Add(employee, profession);
-            return RedirectToAction("Index");
+            EmployeeValidator validator = new EmployeeValidator();
+            var result = validator.Validate(employee);
+            if (result.IsValid)
+            {
+                await _service.Add(employee, profession);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
+            }
+            
         }
     }
 }

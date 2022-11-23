@@ -1,6 +1,7 @@
 ﻿using Cafe.Domain;
 using Cafe.Web.Models;
 using Cafe.Web.Models.ProviderViewModels;
+using Cafe.Web.Models.Validators;
 using Cafe.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ namespace Cafe.Web.Controllers
 
             string name = GetStringFromSession(HttpContext, "provider", "name");
             HttpContext.Session.SetString("provider", name);
-            providers = providers.Where(x => x.Name.Contains(name));
+            providers = providers.Where(x => x.Name.ToLower().Contains(name.ToLower()));
 
             switch (sortOrder)
             {
@@ -65,16 +66,34 @@ namespace Cafe.Web.Controllers
         }
         public async Task<IActionResult> Create(Provider provider)
         {
-            await _service.AddProvider(provider);
-            return RedirectToAction("Index");
+            ProviderValidator validator = new ProviderValidator();
+            var result = validator.Validate(provider);
+            if (result.IsValid)
+            {
+                await _service.AddProvider(provider);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
+            }
         }
 
         [HttpPost]
         [Route("Providers/Update/{id}")]
         public async Task<IActionResult> Update(int id, Provider provider)
         {
-            await _service.UpdateProvider(id, provider);
-            return RedirectToAction("Index");
+            ProviderValidator validator = new ProviderValidator();
+            var result = validator.Validate(provider);
+            if (result.IsValid)
+            {
+                await _service.UpdateProvider(id, provider);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
+            }
         }
     }
 }

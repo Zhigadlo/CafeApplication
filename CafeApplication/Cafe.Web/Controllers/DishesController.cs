@@ -22,7 +22,7 @@ namespace Cafe.Web.Controllers
 
             string name = GetStringFromSession(HttpContext, "dishname", "name");
             HttpContext.Session.SetString("dishname", name);
-            dishes = dishes.Where(x => x.Name.Contains(name));
+            dishes = dishes.Where(x => x.Name.ToLower().Contains(name.ToLower()));
 
             switch (sortOrder)
             {

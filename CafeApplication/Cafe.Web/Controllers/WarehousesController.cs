@@ -39,7 +39,7 @@ namespace Cafe.Web.Controllers
 
             string ingridient = GetStringFromSession(HttpContext, "warehouseingridient", "ingridient");
             HttpContext.Session.SetString("warehouseingridient", ingridient);
-            warehouses = warehouses.Where(x => x.Ingridient.Name.Contains(ingridient));
+            warehouses = warehouses.Where(x => x.Ingridient.Name.ToLower().Contains(ingridient.ToLower()));
 
             switch (sortOrder)
             {
