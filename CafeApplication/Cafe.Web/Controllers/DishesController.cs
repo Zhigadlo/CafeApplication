@@ -1,6 +1,7 @@
 ﻿using Cafe.Domain;
 using Cafe.Web.Models;
 using Cafe.Web.Models.DishViewModels;
+using Cafe.Web.Models.Validators;
 using Cafe.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace Cafe.Web.Controllers
     public class DishesController : BaseController<DishService>
     {
         private IngridientService _ingridientService;
+        
         public DishesController(DishService dishService, IngridientService ingridientService) : base(dishService)
         {
             _ingridientService = ingridientService;
@@ -80,10 +82,20 @@ namespace Cafe.Web.Controllers
             return View("Update", viewModel);
         }
 
-        public async Task<IActionResult> Create(string name, int cost, int cookingTime, int[] ingridientIds, int[] weights)
+        public async Task<IActionResult> Create(Dish dish, int[] ingridientIds, int[] weights)
         {
-            await _service.AddDish(name, cost, cookingTime, ingridientIds, weights);
-            return RedirectToAction("Index");
+            DishValidator validator = new DishValidator();
+            var result = validator.Validate(dish);
+            if (result.IsValid)
+            {
+                await _service.AddDish(dish, ingridientIds, weights);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors=result.Errors.Select(e => e.ErrorMessage).ToArray() });
+            }
+            
         }
 
         public async Task<IActionResult> Description(int id)
@@ -93,10 +105,19 @@ namespace Cafe.Web.Controllers
 
         [HttpPost]
         [Route("Dishes/Update/{id}")]
-        public async Task<IActionResult> Update(int id, string name, int cost, int cookingTime, int[] ingridientIds, int[] weights)
+        public async Task<IActionResult> Update(int id, Dish dish, int cookingTime, int[] ingridientIds, int[] weights)
         {
-            await _service.Update(id, name, cost, cookingTime, ingridientIds, weights);
-            return RedirectToAction("Index");
+            DishValidator validator = new DishValidator();
+            var result = validator.Validate(dish);
+            if (result.IsValid)
+            {
+                await _service.Update(id, dish, ingridientIds, weights);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
+            }
         }
     }
 }

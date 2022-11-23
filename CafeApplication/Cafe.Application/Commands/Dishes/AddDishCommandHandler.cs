@@ -9,13 +9,10 @@ namespace Cafe.Application.Commands.Dishes
         public AddDishCommandHandler(ICafeDbContext context) : base(context) { }
         public async Task<Dish> Handle(AddDishCommand command, CancellationToken cancellationToken)
         {
-            var newDish = new Dish();
-            newDish.Name = command.Name;
-            newDish.Cost = command.Cost;
-            newDish.CookingTime = command.CookingTime;
+            var newDish = command.Dish;
             await _context.Dishes.AddAsync(newDish);
             await _context.Save();
-            Dish dish = _context.Dishes.First(x => x.Name == command.Name);
+            Dish dish = _context.Dishes.First(x => x.Name == newDish.Name);
             for (int i = 0; i < command.IngridientIds.Length; i++)
             {
                 var ingridientDish = new IngridientsDish();
