@@ -37,7 +37,8 @@ namespace Cafe.Web.Controllers
                 {
                     user.Email = model.Email;
                     user.UserName = model.Email;
-
+                    await _userManager.RemovePasswordAsync(user);
+                    await _userManager.AddPasswordAsync(user, model.NewPassword);
                     var result = await _userManager.UpdateAsync(user);
 
                     if (result.Succeeded)

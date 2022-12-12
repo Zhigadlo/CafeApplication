@@ -74,7 +74,7 @@ namespace Cafe.Web.Controllers
         }
         public async Task<IActionResult> CreateView()
         {
-            return View("Create", new CreateOrderViewModel(await _dishService.GetAll(), await _employeeService.GetAll()));
+            return View("Create", new CreateOrderViewModel(await _dishService.GetAll(), (await _employeeService.GetAll()).Where(e => e.Profession.Name.ToLower() == "waiter")));
         }
 
         public async Task<IActionResult> Create(Order order, int employee, int[] dishIds, int[] count)

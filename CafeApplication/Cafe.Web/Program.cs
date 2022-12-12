@@ -51,7 +51,7 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseMiddleware<InitializeDataMiddleware>();
+//app.UseMiddleware<InitializeDataMiddleware>();
 
 
 app.UseRouting();
