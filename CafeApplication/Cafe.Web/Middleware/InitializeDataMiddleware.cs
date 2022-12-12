@@ -1,7 +1,6 @@
 ﻿using Cafe.Domain;
 using Cafe.Persistence;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Cafe.Web.Middleware
 {
@@ -14,7 +13,8 @@ namespace Cafe.Web.Middleware
             _next = next;
         }
 
-        public Task Invoke(HttpContext httpContext, CafeContext dbcontext)
+        public Task Invoke(HttpContext httpContext,
+                           CafeContext dbcontext)
         {
             IngridientsInitialize(dbcontext);
             DishesInitialize(dbcontext);
@@ -25,6 +25,7 @@ namespace Cafe.Web.Middleware
             OrderInitialize(dbcontext, 1000);
             OrderDishInitialize(dbcontext);
             IngridientsDishInitialize(dbcontext);
+            RolesInitialize(httpContext).Wait();
             return _next(httpContext);
         }
 
@@ -45,7 +46,6 @@ namespace Cafe.Web.Middleware
                 dbcontext.SaveChanges();
             }
         }
-
         private void DishesInitialize(CafeContext dbcontext)
         {
             if (!dbcontext.Dishes.Any())
@@ -68,7 +68,6 @@ namespace Cafe.Web.Middleware
             }
 
         }
-
         private void ProfessionInitialize(CafeContext dbcontext)
         {
             if (!dbcontext.Professions.Any())
@@ -85,7 +84,6 @@ namespace Cafe.Web.Middleware
                 dbcontext.SaveChanges();
             }
         }
-
         private void EmployeesInitialize(CafeContext dbcontext)
         {
             if (!dbcontext.Employees.Any())
@@ -108,7 +106,6 @@ namespace Cafe.Web.Middleware
                 dbcontext.SaveChanges();
             }
         }
-
         private void ProvidersInitialize(CafeContext dbcontext, int providersCount)
         {
             if (!dbcontext.Providers.Any())
@@ -124,7 +121,6 @@ namespace Cafe.Web.Middleware
                 dbcontext.SaveChanges();
             }
         }
-
         private void IngridientWarehouseInitialize(CafeContext dbcontext, int count)
         {
             if (!dbcontext.IngridientsWarehouses.Any())
@@ -151,7 +147,6 @@ namespace Cafe.Web.Middleware
                 dbcontext.SaveChanges();
             }
         }
-
         private void OrderInitialize(CafeContext dbcontext, int ordersCount)
         {
             if (!dbcontext.Orders.Any())
@@ -179,7 +174,6 @@ namespace Cafe.Web.Middleware
                 dbcontext.SaveChanges();
             }
         }
-
         private void OrderDishInitialize(CafeContext dbcontext)
         {
             if (!dbcontext.OrderDishes.Any())
@@ -202,17 +196,17 @@ namespace Cafe.Web.Middleware
                 dbcontext.SaveChanges();
             }
         }
-
-
         private void IngridientsDishInitialize(CafeContext dbcontext)
         {
             if (!dbcontext.IngridientsDishes.Any())
             {
                 Random rnd = new Random();
-                Dictionary<Dish, string[]> ingridientsDishes = new Dictionary<Dish, string[]>();
-                ingridientsDishes.Add(dbcontext.Dishes.ToArray()[0], new string[] { "milk", "coffee", "water" });
-                ingridientsDishes.Add(dbcontext.Dishes.ToArray()[1], new string[] { "tea", "sugar", "water" });
-                ingridientsDishes.Add(dbcontext.Dishes.ToArray()[2], new string[] { "tea", "lemon", "water" });
+                Dictionary<Dish, string[]> ingridientsDishes = new Dictionary<Dish, string[]>
+                {
+                    { dbcontext.Dishes.ToArray()[0], new string[] { "milk", "coffee", "water" } },
+                    { dbcontext.Dishes.ToArray()[1], new string[] { "tea", "sugar", "water" } },
+                    { dbcontext.Dishes.ToArray()[2], new string[] { "tea", "lemon", "water" } }
+                };
 
                 List<IngridientsDish> ingridientsDishForDb = new List<IngridientsDish>();
                 foreach (KeyValuePair<Dish, string[]> item in ingridientsDishes)
@@ -230,10 +224,52 @@ namespace Cafe.Web.Middleware
                 }
             }
         }
-
-        private void UsersInitialize(CafeContext context)
+        private async Task RolesInitialize(HttpContext context)
         {
-            
+            UserManager<IdentityUser> userManager = context.RequestServices.GetRequiredService<UserManager<IdentityUser>>();
+            RoleManager<IdentityRole> roleManager = context.RequestServices.GetRequiredService<RoleManager<IdentityRole>>();
+            string adminEmail = "admin@gmail.com";
+            string adminName = adminEmail;
+
+            string hostEmail = "host@gmail.com";
+            string hostName = hostEmail;
+
+            string adminPassword = "Admin1234_";
+            string hostPassword = "Host1234_";
+            if (await roleManager.FindByNameAsync("admin") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("admin"));
+            }
+            if (await roleManager.FindByNameAsync("host") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("host"));
+            }
+            if (await userManager.FindByNameAsync(adminEmail) == null)
+            {
+                IdentityUser admin = new IdentityUser
+                {
+                    Email = adminEmail,
+                    UserName = adminName
+                };
+                IdentityResult result = await userManager.CreateAsync(admin, adminPassword);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(admin, "admin");
+                }
+            }
+            if (await userManager.FindByNameAsync(hostName) == null)
+            {
+                IdentityUser host = new IdentityUser
+                {
+                    Email = hostEmail,
+                    UserName = hostName
+                };
+                IdentityResult result = await userManager.CreateAsync(host, hostPassword);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(host, "host");
+                }
+            }
         }
     }
 }

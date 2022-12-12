@@ -1,6 +1,4 @@
 ﻿using Cafe.Application.Commands.Warehouses;
-using Cafe.Application.Queries.Ingridients;
-using Cafe.Application.Queries.Providers;
 using Cafe.Application.Queries.Warehouses;
 using Cafe.Domain;
 using MediatR;
@@ -12,19 +10,17 @@ namespace Cafe.Web.Services
     {
         public WarehouseService(IMediator mediator, IMemoryCache cache) : base(mediator, cache) { }
 
-        public async Task<IEnumerable<IngridientsWarehouse>> GetAllWarehouses()
+        public async Task<IEnumerable<IngridientsWarehouse>> GetAll()
         {
-            return await _mediator.Send(new GetAllWarehousesCommand());
-        }
+            IEnumerable<IngridientsWarehouse> ingridientsWarehouses;
 
-        public async Task<IEnumerable<Provider>> GetAllProviders()
-        {
-            return await _mediator.Send(new GetAllProvidersCommand());
-        }
+            if (!_cache.TryGetValue("warehouses", out ingridientsWarehouses))
+            {
+                ingridientsWarehouses = await _mediator.Send(new GetAllWarehousesCommand());
+                _cache.Set("warehouses", ingridientsWarehouses.ToList());
+            }
 
-        public async Task<IEnumerable<Ingridient>> GetAllIngridients()
-        {
-            return await _mediator.Send(new GetAllIngridientsCommand());
+            return ingridientsWarehouses;
         }
 
         public async Task<IngridientsWarehouse> GetWarehouseById(int id)
@@ -34,16 +30,19 @@ namespace Cafe.Web.Services
 
         public async Task<IngridientsWarehouse> Create(IngridientsWarehouse warehouse)
         {
+            CacheClear();
             return await _mediator.Send(new CreateWarehouseCommand(warehouse));
         }
 
         public async Task<IngridientsWarehouse> Update(int id, IngridientsWarehouse warehouse)
         {
+            CacheClear();
             return await _mediator.Send(new UpdateWarehouseCommand(id, warehouse));
         }
 
         public async Task<IngridientsWarehouse> Delete(int id)
         {
+            CacheClear();
             return await _mediator.Send(new DeleteWarehouseCommand(id));
         }
     }

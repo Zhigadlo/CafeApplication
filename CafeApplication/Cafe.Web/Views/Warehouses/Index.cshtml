@@ -5,7 +5,7 @@
 @using Cafe.Web.Models.WarehouseViewModels
 @model WarehouseIndexViewModel
 <div>
-    <h2>@Html.ActionLink("add new ingridient to warehouse", "CreateView", "Warehouses")</h2>
+    <h2>@Html.ActionLink("add new ingridient to warehouse", "CreateView", "Warehouses", null, new { @class="btn btn-sm btn-dark" })</h2>
     <form method="get">
         <label>Ingridient name: </label>
         <input name="ingridient" value="@Model.FilterViewModel.SelectedIngridient" />
@@ -19,27 +19,27 @@
         <tr>
             <th>
                 @Html.ActionLink("Ingridients", "Index", "Warehouses", new { name=Model.FilterViewModel.SelectedIngridient,
-                sortOrder=Model.SortViewModel.IngridientState})
+                sortOrder=Model.SortViewModel.IngridientState}, new { @class="btn btn-sm" })
             </th>
             <th>
                 @Html.ActionLink("Providers", "Index", "Warehouses", new { name=Model.FilterViewModel.SelectedIngridient,
-                sortOrder=Model.SortViewModel.ProviderState})
+                sortOrder=Model.SortViewModel.ProviderState}, new { @class="btn btn-sm" })
             </th>
             <th>
                 @Html.ActionLink("Weight", "Index", "Warehouses", new { name=Model.FilterViewModel.SelectedIngridient,
-                sortOrder=Model.SortViewModel.WeightState})
+                sortOrder=Model.SortViewModel.WeightState}, new { @class="btn btn-sm" })
             </th>
             <th>
                 @Html.ActionLink("Cost", "Index", "Warehouses", new { name=Model.FilterViewModel.SelectedIngridient,
-                sortOrder=Model.SortViewModel.CostState})
+                sortOrder=Model.SortViewModel.CostState}, new { @class="btn btn-sm" })
             </th>
             <th>
                 @Html.ActionLink("Release date", "Index", "Warehouses", new { name=Model.FilterViewModel.SelectedIngridient,
-                sortOrder=Model.SortViewModel.ReleaseDateState})
+                sortOrder=Model.SortViewModel.ReleaseDateState}, new { @class="btn btn-sm" })
             </th>
             <th>
                 @Html.ActionLink("Storage life", "Index", "Warehouses", new { name=Model.FilterViewModel.SelectedIngridient,
-                sortOrder=Model.SortViewModel.StorageLifeState})
+                sortOrder=Model.SortViewModel.StorageLifeState}, new { @class="btn btn-sm" })
             </th>
             <th></th>
             <th></th>
@@ -53,8 +53,8 @@
                 <td>@item.Cost</td>
                 <td>@item.ReleaseDate.ToShortDateString()</td>
                 <td>@item.StorageLife.ToShortDateString()</td>
-                <td>@Html.ActionLink("change", "UpdateView", "Warehouses", new { id=item.Id })</td>
-                <td>@Html.ActionLink("delete", "Delete", "Warehouses", new { id=item.Id })</td>
+                <td>@Html.ActionLink("change", "UpdateView", "Warehouses", new { id=item.Id }, new { @class="btn btn-sm btn-primary" })</td>
+                <td>@Html.ActionLink("delete", "Delete", "Warehouses", new { id=item.Id }, new { @class="btn btn-sm btn-danger" })</td>
             </tr>
         }
     </table>

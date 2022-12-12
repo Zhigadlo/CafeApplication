@@ -1,5 +1,6 @@
 ﻿using Cafe.Domain;
 using Cafe.Web.Models;
+using Cafe.Web.Models.Validators;
 using Cafe.Web.Models.WarehouseViewModels;
 using Cafe.Web.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -8,21 +9,38 @@ namespace Cafe.Web.Controllers
 {
     public class WarehousesController : BaseController<WarehouseService>
     {
-        public WarehousesController(WarehouseService service) : base(service) { }
+        private ProviderService _providerService;
+        private IngridientService _ingridientService;
+        public WarehousesController(WarehouseService service,
+                                    ProviderService providerService,
+                                    IngridientService ingridientService) : base(service)
+        {
+            _providerService = providerService;
+            _ingridientService = ingridientService;
+        }
 
-        public async Task<IActionResult> Index(string ingridient, int? provider, int page = 1,
+        public async Task<IActionResult> Index(int? provider, int page = 1,
                                     WarehouseSortState sortOrder = WarehouseSortState.StorageLifeAsc)
         {
-            IEnumerable<IngridientsWarehouse> warehouses = await _service.GetAllWarehouses();;
+            IEnumerable<IngridientsWarehouse> warehouses = await _service.GetAll(); ;
 
-            if (provider != 0 && provider != null)
+            if (provider != null)
             {
+                HttpContext.Session.SetInt32("providerid", (int)provider);
+            }
+            else
+            {
+                provider = HttpContext.Session.Keys.Contains("providerid")
+                         ? HttpContext.Session.GetInt32("providerid") : -1;
+            }
+
+            if (provider != -1)
                 warehouses = warehouses.Where(x => x.ProviderId == provider);
-            }
-            if (!String.IsNullOrEmpty(ingridient))
-            {
-                warehouses = warehouses.Where(x => x.Ingridient.Name.Contains(ingridient));
-            }
+
+
+            string ingridient = GetStringFromSession(HttpContext, "warehouseingridient", "ingridient");
+            HttpContext.Session.SetString("warehouseingridient", ingridient);
+            warehouses = warehouses.Where(x => x.Ingridient.Name.ToLower().Contains(ingridient.ToLower()));
 
             switch (sortOrder)
             {
@@ -73,7 +91,7 @@ namespace Cafe.Web.Controllers
             {
                 PageViewModel = pageViewModel,
                 Items = items,
-                FilterViewModel = new FilterWarehouseViewModel((await _service.GetAllProviders()), provider, ingridient),
+                FilterViewModel = new FilterWarehouseViewModel((await _providerService.GetAll()).ToList(), provider, ingridient),
                 SortViewModel = new SortWarehouseViewModel(sortOrder)
             };
             return View(viewModel);
@@ -82,14 +100,23 @@ namespace Cafe.Web.Controllers
         public async Task<IActionResult> CreateView()
         {
 
-            return View("Create", new CreateWarehouseViewModel(await _service.GetAllIngridients(), 
-                                                               await _service.GetAllProviders()));
+            return View("Create", new CreateWarehouseViewModel(await _ingridientService.GetAll(),
+                                                               await _providerService.GetAll()));
         }
 
         public async Task<IActionResult> Create(IngridientsWarehouse warehouse)
         {
-            await _service.Create(warehouse);
-            return RedirectToAction("Index");
+            WarehouseValidator validator = new WarehouseValidator();
+            var result = validator.Validate(warehouse);
+            if (result.IsValid)
+            {
+                await _service.Create(warehouse);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
+            }
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -102,8 +129,8 @@ namespace Cafe.Web.Controllers
         [Route("Warehouses/Update/{id}")]
         public async Task<IActionResult> UpdateView(int id)
         {
-            return View("Update", new UpdateWarehouseViewModel(await _service.GetAllIngridients(), 
-                                                               await _service.GetAllProviders(), 
+            return View("Update", new UpdateWarehouseViewModel(await _ingridientService.GetAll(),
+                                                               await _providerService.GetAll(),
                                                                await _service.GetWarehouseById(id)));
         }
 
@@ -111,8 +138,17 @@ namespace Cafe.Web.Controllers
         [Route("Warehouses/Update/{id}")]
         public async Task<IActionResult> Update(int id, IngridientsWarehouse warehouse)
         {
-            await _service.Update(id, warehouse);
-            return RedirectToAction("Index");
+            WarehouseValidator validator = new WarehouseValidator();
+            var result = validator.Validate(warehouse);
+            if (result.IsValid)
+            {
+                await _service.Update(id, warehouse);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
+            }
         }
     }
 }

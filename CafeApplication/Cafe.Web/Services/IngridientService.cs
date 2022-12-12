@@ -11,40 +11,36 @@ namespace Cafe.Web.Services
         public IngridientService(IMediator mediator, IMemoryCache cache) : base(mediator, cache) { }
         public async Task<IEnumerable<Ingridient>> GetAll()
         {
-            return await _mediator.Send(new GetAllIngridientsCommand()); ;
+            IEnumerable<Ingridient> ingridients;
+            if (!_cache.TryGetValue("ingridients", out ingridients))
+            {
+                ingridients = await _mediator.Send(new GetAllIngridientsCommand());
+                _cache.Set("ingridients", ingridients.ToList());
+            }
+            return ingridients;
         }
 
         public async Task<Ingridient> GetIngridientById(int id)
         {
-            Ingridient? ingridient = null;
-            if (!_cache.TryGetValue(id, out ingridient))
-            {
-                ingridient = await _mediator.Send(new GetIngridientByIdCommand(id));
-                if (ingridient != null)
-                {
-                    _cache.Set(id, ingridient);
-                }
-            }
-            return ingridient;
+            return await _mediator.Send(new GetIngridientByIdCommand(id));
         }
-        public async Task CreateIngridient(string name)
+        public async Task CreateIngridient(Ingridient ingridient)
         {
-            var command = new AddIngridientCommand(name);
-            await _mediator.Send(command);
+            CacheClear();
+            await _mediator.Send(new AddIngridientCommand(ingridient));
         }
 
         public async Task Delete(int id)
         {
-            var command = new DeleteIngridientCommand(id);
-            _cache.Remove(id);
-            await _mediator.Send(command);
+            CacheClear();
+            await _mediator.Send(new DeleteIngridientCommand(id));
         }
 
-        public async Task Update(int id, string name)
+        public async Task Update(int id, Ingridient ingridient)
         {
-            var command = new UpdateIngridientCommand(id, name);
-            Ingridient ingridient = await _mediator.Send(command);
-            _cache.Set(id, ingridient);
+            var command = new UpdateIngridientCommand(id, ingridient);
+            await _mediator.Send(command);
+            CacheClear();
         }
     }
 }

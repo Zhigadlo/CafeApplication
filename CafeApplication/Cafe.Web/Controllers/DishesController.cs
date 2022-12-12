@@ -1,6 +1,7 @@
 ﻿using Cafe.Domain;
 using Cafe.Web.Models;
 using Cafe.Web.Models.DishViewModels;
+using Cafe.Web.Models.Validators;
 using Cafe.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,16 +9,20 @@ namespace Cafe.Web.Controllers
 {
     public class DishesController : BaseController<DishService>
     {
-        public DishesController(DishService service) : base(service) { }
+        private IngridientService _ingridientService;
 
-        public async Task<IActionResult> Index(string name, int page = 1, DishSortState sortOrder = DishSortState.NameAsc)
+        public DishesController(DishService dishService, IngridientService ingridientService) : base(dishService)
         {
-            IEnumerable<Dish> dishes = await _service.GetAllDishes();
+            _ingridientService = ingridientService;
+        }
 
-            if (!String.IsNullOrEmpty(name))
-            {
-                dishes = dishes.Where(x => x.Name.Contains(name));
-            }
+        public async Task<IActionResult> Index(int page = 1, DishSortState sortOrder = DishSortState.NameAsc)
+        {
+            IEnumerable<Dish> dishes = await _service.GetAll();
+
+            string name = GetStringFromSession(HttpContext, "dishname", "name");
+            HttpContext.Session.SetString("dishname", name);
+            dishes = dishes.Where(x => x.Name.ToLower().Contains(name.ToLower()));
 
             switch (sortOrder)
             {
@@ -64,7 +69,7 @@ namespace Cafe.Web.Controllers
 
         public async Task<IActionResult> CreateView()
         {
-            return View("Create", await _service.GetAllIngridients());
+            return View("Create", await _ingridientService.GetAll());
         }
 
         [HttpGet]
@@ -72,15 +77,25 @@ namespace Cafe.Web.Controllers
         public async Task<IActionResult> UpdateView(int id)
         {
             Dish dish = await _service.GetDishById(id);
-            IEnumerable<Ingridient> ingridients = await _service.GetAllIngridients();
+            IEnumerable<Ingridient> ingridients = await _ingridientService.GetAll();
             DishUpdateViewModel viewModel = new DishUpdateViewModel(dish, dish.IngridientsDishes, ingridients);
             return View("Update", viewModel);
         }
 
-        public async Task<IActionResult> Create(string name, int cost, int cookingTime, int[] ingridientIds, int[] weights)
+        public async Task<IActionResult> Create(Dish dish, int[] ingridientIds, int[] weights)
         {
-            await _service.AddDish(name, cost, cookingTime, ingridientIds, weights);
-            return RedirectToAction("Index");
+            DishValidator validator = new DishValidator();
+            var result = validator.Validate(dish);
+            if (result.IsValid)
+            {
+                await _service.AddDish(dish, ingridientIds, weights);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
+            }
+
         }
 
         public async Task<IActionResult> Description(int id)
@@ -90,10 +105,19 @@ namespace Cafe.Web.Controllers
 
         [HttpPost]
         [Route("Dishes/Update/{id}")]
-        public async Task<IActionResult> Update(int id, string name, int cost, int cookingTime, int[] ingridientIds, int[] weights)
+        public async Task<IActionResult> Update(int id, Dish dish, int cookingTime, int[] ingridientIds, int[] weights)
         {
-            await _service.Update(id, name, cost, cookingTime, ingridientIds, weights);
-            return RedirectToAction("Index");
+            DishValidator validator = new DishValidator();
+            var result = validator.Validate(dish);
+            if (result.IsValid)
+            {
+                await _service.Update(id, dish, ingridientIds, weights);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
+            }
         }
     }
 }

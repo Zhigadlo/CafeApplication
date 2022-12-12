@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Cafe.Domain.Dish" Collapsed="true">
+    <Position X="29.75" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Domain.Employee" Collapsed="true">
+    <Position X="28" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Domain.Ingridient" Collapsed="true">
+    <Position X="31.5" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Domain.IngridientsDish" Collapsed="true">
+    <Position X="31.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Domain.IngridientsWarehouse" Collapsed="true">
+    <Position X="31.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Domain.Order" Collapsed="true">
+    <Position X="28" Y="3.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Domain.OrderDish" Collapsed="true">
+    <Position X="29.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Domain.Profession" Collapsed="true">
+    <Position X="28" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Domain.Provider" Collapsed="true">
+    <Position X="29.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Persistence.CafeContext" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Cafe.Persistence.EntityTypeConfigurations.DishConfiguration" Collapsed="true">
+    <Position X="31.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Persistence.EntityTypeConfigurations.EmployeeConfiguration" Collapsed="true">
+    <Position X="27.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Persistence.EntityTypeConfigurations.IngridientConfiguration" Collapsed="true">
+    <Position X="29.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Persistence.EntityTypeConfigurations.IngridientDishConfiguration" Collapsed="true">
+    <Position X="30.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Persistence.EntityTypeConfigurations.IngridientsWarehouseConfiguration" Collapsed="true">
+    <Position X="31.25" Y="12.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Persistence.EntityTypeConfigurations.OrderConfiguration" Collapsed="true">
+    <Position X="28.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Persistence.EntityTypeConfigurations.OrderDishConfiguration" Collapsed="true">
+    <Position X="30.25" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Persistence.EntityTypeConfigurations.ProfessionConfiguration" Collapsed="true">
+    <Position X="27.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Persistence.EntityTypeConfigurations.ProviderConfiguration" Collapsed="true">
+    <Position X="28.5" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.CafeContextHandler" Collapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Dishes.AddDishCommand" Collapsed="true">
+    <Position X="2.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Dishes.AddDishCommandHandler" Collapsed="true">
+    <Position X="2.75" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Dishes.DeleteDishCommand" Collapsed="true">
+    <Position X="4.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Dishes.DeleteDishCommandHandler" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Dishes.UpdateDishCommand" Collapsed="true">
+    <Position X="6.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Dishes.UpdateDishCommandHandler" Collapsed="true">
+    <Position X="6.75" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Employees.AddEmployeeCommand" Collapsed="true">
+    <Position X="9.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Employees.AddEmployeeCommandHandler" Collapsed="true">
+    <Position X="4.75" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Employees.DeleteEmployeeCommand" Collapsed="true">
+    <Position X="13.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Employees.DeleteEmployeeCommandHandler" Collapsed="true">
+    <Position X="2.75" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Employees.UpdateEmployeeCommand" Collapsed="true">
+    <Position X="8" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Employees.UpdateEmployeeCommandHandler" Collapsed="true">
+    <Position X="6.75" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Ingridients.AddIngridientCommand" Collapsed="true">
+    <Position X="11.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Ingridients.AddIngridientCommandHandler" Collapsed="true">
+    <Position X="8.5" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Ingridients.DeleteIngridientCommand" Collapsed="true">
+    <Position X="16.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Ingridients.DeleteIngridientCommandHandler" Collapsed="true">
+    <Position X="4.75" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Ingridients.UpdateIngridientCommand" Collapsed="true">
+    <Position X="15" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Ingridients.UpdateIngridientCommandHandler" Collapsed="true">
+    <Position X="10.25" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Orders.CreateOrderCommand" Collapsed="true">
+    <Position X="20.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Orders.CreateOrderCommandHandler" Collapsed="true">
+    <Position X="10.25" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Orders.DeleteOrderCommand" Collapsed="true">
+    <Position X="18.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Orders.DeleteOrderCommandHandler" Collapsed="true">
+    <Position X="8.5" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Orders.UpdateOrderCommand" Collapsed="true">
+    <Position X="22" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Orders.UpdateOrderCommandHandler" Collapsed="true">
+    <Position X="13.5" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Providers.AddProviderCommand" Collapsed="true">
+    <Position X="2.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Providers.AddProviderCommandHandler" Collapsed="true">
+    <Position X="10.25" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Providers.DeleteProviderCommand" Collapsed="true">
+    <Position X="6.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Providers.DeleteProviderCommandHandler" Collapsed="true">
+    <Position X="6.75" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Providers.UpdateProviderCommand" Collapsed="true">
+    <Position X="4.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Providers.UpdateProviderCommandHandler" Collapsed="true">
+    <Position X="13.5" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Warehouses.CreateWarehouseCommand" Collapsed="true">
+    <Position X="8" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Warehouses.CreateWarehouseCommandHandler" Collapsed="true">
+    <Position X="8.5" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Warehouses.DeleteWarehouseCommand" Collapsed="true">
+    <Position X="9.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Warehouses.DeleteWarehouseCommandHandler" Collapsed="true">
+    <Position X="4.75" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Warehouses.UpdateWarehouseCommand" Collapsed="true">
+    <Position X="11.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Commands.Warehouses.UpdateWarehouseCommandHandler" Collapsed="true">
+    <Position X="13.5" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Dishes.GetAllDishesCommand" Collapsed="true">
+    <Position X="13.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Dishes.GetAllDishesCommandHandler" Collapsed="true">
+    <Position X="15.5" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Dishes.GetDishByIdCommand" Collapsed="true">
+    <Position X="15" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Dishes.GetDishByIdCommandHandler" Collapsed="true">
+    <Position X="15.5" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Ingridients.GetAllIngridientsCommand" Collapsed="true">
+    <Position X="20.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Ingridients.GetAllIngridientsCommandHandler" Collapsed="true">
+    <Position X="15.5" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Ingridients.GetIngridientByIdCommand" Collapsed="true">
+    <Position X="22" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Ingridients.GetIngridientByIdCommandHandler" Collapsed="true">
+    <Position X="17.5" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Orders.GetAllOrdersCommand" Collapsed="true">
+    <Position X="4.5" Y="7" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Orders.GetAllOrdersCommandHandler" Collapsed="true">
+    <Position X="17.5" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Orders.GetOrderByIdCommand" Collapsed="true">
+    <Position X="2.75" Y="7" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Orders.GetOrderByIdCommandHandler" Collapsed="true">
+    <Position X="17.5" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Professions.GetAllProfessionsCommand" Collapsed="true">
+    <Position X="6.25" Y="7" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Professions.GetAllProfessionsCommandHandler" Collapsed="true">
+    <Position X="19.5" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Providers.GetAllProvidersCommand" Collapsed="true">
+    <Position X="8" Y="7" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Providers.GetAllProvidersCommandHandler" Collapsed="true">
+    <Position X="19.5" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Providers.GetProviderByIdCommand" Collapsed="true">
+    <Position X="9.75" Y="7" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Providers.GetProviderByIdCommandHandler" Collapsed="true">
+    <Position X="21.25" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Warehouses.GetAllWarehousesCommand" Collapsed="true">
+    <Position X="13.25" Y="7" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Warehouses.GetAllWarehousesCommandHandler" Collapsed="true">
+    <Position X="19.5" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Warehouses.GetWarehouseByIdCommand" Collapsed="true">
+    <Position X="11.5" Y="7" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Warehouses.GetWarehouseByIdCommandHandler" Collapsed="true">
+    <Position X="21.25" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Data.ApplicationDbContext" Collapsed="true">
+    <Position X="3.5" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Controllers.BaseController&lt;T&gt;" Collapsed="true">
+    <Position X="19.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Controllers.DishesController" Collapsed="true">
+    <Position X="20.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Controllers.EmployeesController" Collapsed="true">
+    <Position X="20.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Controllers.HomeController" Collapsed="true">
+    <Position X="7" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Controllers.IngridientsController" Collapsed="true">
+    <Position X="18.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Controllers.OrdersController" Collapsed="true">
+    <Position X="18.25" Y="12.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Controllers.ProvidersController" Collapsed="true">
+    <Position X="18.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Controllers.UsersController" Collapsed="true">
+    <Position X="15.75" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Controllers.WarehousesController" Collapsed="true">
+    <Position X="20.25" Y="12.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Middleware.InitializeDataMiddleware" Collapsed="true">
+    <Position X="5.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.ErrorViewModel" Collapsed="true">
+    <Position X="13.75" Y="16.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.IndexViewModel&lt;T&gt;" Collapsed="true">
+    <Position X="14.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.PageViewModel" Collapsed="true">
+    <Position X="21" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.DishViewModels.DishIndexViewModel" Collapsed="true">
+    <Position X="13" Y="12.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.DishViewModels.FilterDishViewModel" Collapsed="true">
+    <Position X="21" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.DishViewModels.SortDishViewModel" Collapsed="true">
+    <Position X="19.25" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.DishViewModels.DishSortState" Collapsed="true">
+    <Position X="15.75" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.DishViewModels.DishUpdateViewModel" Collapsed="true">
+    <Position X="17.5" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.EmployeeViewModels.EmployeeFilterViewModel" Collapsed="true">
+    <Position X="5.25" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.EmployeeViewModels.EmployeeIndexViewModel" Collapsed="true">
+    <Position X="13" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.EmployeeViewModels.SortEmployeeViewModel" Collapsed="true">
+    <Position X="7" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.EmployeeViewModels.EmployeeSortState" Collapsed="true">
+    <Position X="8.75" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.EmployeeViewModels.EmployeeUpdateViewModel" Collapsed="true">
+    <Position X="10.5" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.IngridientViewModels.FilterIngridientViewModel" Collapsed="true">
+    <Position X="8.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.IngridientViewModels.IngridientIndexViewModel" Collapsed="true">
+    <Position X="15.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.IngridientViewModels.SortIngridientViewModel" Collapsed="true">
+    <Position X="21" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.IngridientViewModels.IngridientSortState" Collapsed="true">
+    <Position X="12.25" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.OrderViewModels.CreateOrderViewModel" Collapsed="true">
+    <Position X="3.5" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.OrderViewModels.OrderFilterViewModel" Collapsed="true">
+    <Position X="10.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.OrderViewModels.OrderIndexViewModel" Collapsed="true">
+    <Position X="13" Y="11.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.OrderViewModels.SortOrderViewModel" Collapsed="true">
+    <Position X="14" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.OrderViewModels.UpdateOrderViewModel" Collapsed="true">
+    <Position X="11.75" Y="16.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.OrderViewModels.OrderSortState" Collapsed="true">
+    <Position X="12.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.ProviderViewModels.ProviderFilterViewModel" Collapsed="true">
+    <Position X="19.25" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.ProviderViewModels.ProviderIndexViewModel" Collapsed="true">
+    <Position X="15.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.ProviderViewModels.SortProviderViewModel" Collapsed="true">
+    <Position X="15.75" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.ProviderViewModels.ProviderSortState" Collapsed="true">
+    <Position X="10" Y="16.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.UserViewModels.UserUpdateViewModel" Collapsed="true">
+    <Position X="17.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.Validators.DishValidator" Collapsed="true">
+    <Position X="5.25" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.Validators.EmployeeValidator" Collapsed="true">
+    <Position X="12.25" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.Validators.IngridientValidator" Collapsed="true">
+    <Position X="10.5" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.Validators.OrderValidator" Collapsed="true">
+    <Position X="8.75" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.Validators.ProviderValidator" Collapsed="true">
+    <Position X="7" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.Validators.WarehouseValidator" Collapsed="true">
+    <Position X="14" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.WarehouseViewModels.CreateWarehouseViewModel" Collapsed="true">
+    <Position X="8.75" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.WarehouseViewModels.FilterWarehouseViewModel" Collapsed="true">
+    <Position X="3.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.WarehouseViewModels.SortWarehouseViewModel" Collapsed="true">
+    <Position X="17.5" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.WarehouseViewModels.UpdateWarehouseViewModel" Collapsed="true">
+    <Position X="14" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.WarehouseViewModels.WarehouseIndexViewModel" Collapsed="true">
+    <Position X="15.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Models.WarehouseViewModels.WarehouseSortState" Collapsed="true">
+    <Position X="19.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Services.BaseService" Collapsed="true">
+    <Position X="7.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Services.DishService" Collapsed="true">
+    <Position X="7.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Services.EmployeeService" Collapsed="true">
+    <Position X="9.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Services.IngridientService" Collapsed="true">
+    <Position X="5.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Services.OrderService" Collapsed="true">
+    <Position X="7.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Services.ProfessionService" Collapsed="true">
+    <Position X="9.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Services.ProviderService" Collapsed="true">
+    <Position X="5.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Web.Services.WarehouseService" Collapsed="true">
+    <Position X="7.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Employees.GetAllEmployeesCommand" Collapsed="true">
+    <Position X="16.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Employees.GetAllEmployeesCommandHandler" Collapsed="true">
+    <Position X="21.25" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cafe.Application.Queries.Employees.GetEmployeeByIdCommand" Collapsed="true">
+    <Position X="18.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="Cafe.Application.Interfaces.ICafeDbContext" Collapsed="true">
+    <Position X="16.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

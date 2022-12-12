@@ -10,15 +10,9 @@ namespace Cafe.Application.Commands.Orders
 
         public async Task<Order> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
         {
-            var newOrder = new Order()
-            {
-                CustomerName = command.CustomerName,
-                OrderDate = command.Date,
-                Employee = _context.Employees.First(e => e.Id == command.Employee),
-                CustomerPhoneNumber = command.PhoneNumber,
-                PaymentMethod = command.PaymentMethod,
-                IsCompleted = 0
-            };
+            var newOrder = command.Order;
+            newOrder.Employee = _context.Employees.First(e => e.Id == command.Employee);
+            newOrder.IsCompleted = 0;
             _context.Orders.Add(newOrder);
             await _context.Save();
 

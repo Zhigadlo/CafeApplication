@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Cafe.Application.Commands.Dishes
 {
-    public record UpdateDishCommand(int Id, string Name, int Cost, int CookingTime, int[] IngridientIds, int[] Weights) : IRequest<Dish>;
+    public record UpdateDishCommand(int Id, Dish Dish, int[] IngridientIds, int[] Weights) : IRequest<Dish>;
 }

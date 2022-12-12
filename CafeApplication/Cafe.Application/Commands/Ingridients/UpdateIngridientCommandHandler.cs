@@ -9,8 +9,8 @@ namespace Cafe.Application.Commands.Ingridients
         public UpdateIngridientCommandHandler(ICafeDbContext context) : base(context) { }
         public async Task<Ingridient> Handle(UpdateIngridientCommand command, CancellationToken cancellationToken)
         {
-            Ingridient ingridient = _context.Ingridients.FirstOrDefault(i => i.Id == command.Id);
-            ingridient.Name = command.NewName;
+            Ingridient ingridient = command.Ingridient;
+            ingridient.Id = command.Id;
             _context.Ingridients.Update(ingridient);
             await _context.Save();
             return ingridient;

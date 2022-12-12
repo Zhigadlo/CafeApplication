@@ -4,24 +4,24 @@
 @{
     ViewData["Title"] = "Order update";
 }
-@using (Html.BeginForm("UpdateView", "Orders", FormMethod.Post))
+@using (Html.BeginForm("UpdateView", "Orders", FormMethod.Post, new { id="updateForm"}))
 {
     <h3>Order updating</h3>
     <p>
         <label>Customer name</label><br />
-        <input type="text" name="customerName" value="@Model.CustomerName" required />
+        <input type="text" name="CustomerName" value="@Model.CustomerName" required />
     </p>
     <p>
         <label>Date</label><br />
-        <input type="datetime-local" name="date" value="@Model.Date.ToString("yyyy-MM-ddThh:mm")" required />
+        <input type="datetime-local" name="OrderDate" value="@Model.Date.ToString("yyyy-MM-ddThh:mm")" required />
     </p>
     <p>
         <label>Customer phone number</label><br />
-        <input type="text" name="phoneNumber" value="@Model.PhoneNumber" required />
+        <input type="text" name="CustomerPhoneNumber" value="@Model.PhoneNumber" required />
     </p>
     <p>
         <label>Payment method</label>
-        <select name="paymentMethod">
+        <select name="PaymentMethod">
             @if (Model.PaymentMethod == 0)
             {
                 <option value="0" selected>cash</option>
@@ -40,15 +40,15 @@
     </p>
     <p>
         <label>IsCompleted</label>
-        <select name="isComplete">
+        <select name="IsCompleted">
             @if (Model.IsComplete == 0)
             {
                 <option value="0" selected>false</option>
-                <option value="1">card</option>
+                <option value="1">true</option>
             }
             else
             {
-                <option value="0">cash</option>
+                <option value="0">false</option>
                 <option value="1" selected>true</option>
             }
         </select>
@@ -77,3 +77,24 @@
         <input type="submit" value="Update" />
     </p>
 }
+
+<script>
+    $("#updateForm").validate({
+        rules:{
+            CustomerName: {
+                required: true
+            },
+            OrderDate: {
+                required: true
+            },
+            CustomerPhoneNumber: {
+                required: true
+            }
+        },
+        messages: {
+            CustomerName: "<h5 class=\"text-danger\">Enter customer name</h5>",
+            OrderDate: "<h5 class=\"text-danger\">Pick order date</h5>",
+            CustomerPhoneNumber: "<h5 class=\"text-danger\">Enter phone number</h5>"
+        }
+    })
+</script>

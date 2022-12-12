@@ -1,6 +1,7 @@
 ﻿using Cafe.Domain;
 using Cafe.Web.Models;
 using Cafe.Web.Models.EmployeeViewModels;
+using Cafe.Web.Models.Validators;
 using Cafe.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,28 +9,39 @@ namespace Cafe.Web.Controllers
 {
     public class EmployeesController : BaseController<EmployeeService>
     {
-        public EmployeesController(EmployeeService service) : base(service) { }
+        private ProfessionService _professionService;
+        public EmployeesController(EmployeeService employeeService, ProfessionService professionService) : base(employeeService)
+        {
+            _professionService = professionService;
+        }
 
-        public async Task<IActionResult> Index(string firstName, string lastName, string middleName, int? profession,
-                                    int page = 1, EmployeeSortState sortOrder = EmployeeSortState.AgeAsc)
+        public async Task<IActionResult> Index(int? profession, int page = 1,
+                                       EmployeeSortState sortOrder = EmployeeSortState.AgeAsc)
         {
             IEnumerable<Employee> employees = await _service.GetAll();
-            if (profession != 0 && profession != null)
+
+            if (profession != null)
             {
+                HttpContext.Session.SetInt32("employeeprofession", (int)profession);
+            }
+            else
+            {
+                profession = HttpContext.Session.Keys.Contains("employeeprofession")
+                           ? HttpContext.Session.GetInt32("employeeprofession") : -1;
+            }
+            if (profession != -1)
                 employees = employees.Where(x => x.Profession.Id == profession);
-            }
-            if (!String.IsNullOrEmpty(firstName))
-            {
-                employees = employees.Where(x => x.FirstName.Contains(firstName));
-            }
-            if (!String.IsNullOrEmpty(lastName))
-            {
-                employees = employees.Where(x => x.LastName.Contains(lastName));
-            }
-            if (!String.IsNullOrEmpty(middleName))
-            {
-                employees = employees.Where(x => x.MiddleName.Contains(middleName));
-            }
+
+            string firstName = GetStringFromSession(HttpContext, "employeefirstname", "firstName");
+            HttpContext.Session.SetString("employeefirstname", firstName);
+            string lastName = GetStringFromSession(HttpContext, "employeelastname", "lastName");
+            HttpContext.Session.SetString("employeelastname", lastName);
+            string middleName = GetStringFromSession(HttpContext, "employeemiddlename", "middleName");
+            HttpContext.Session.SetString("employeemiddlename", middleName);
+
+            employees = employees.Where(x => x.FirstName.Contains(firstName)
+                                          && x.LastName.Contains(lastName)
+                                          && x.MiddleName.Contains(middleName));
 
             switch (sortOrder)
             {
@@ -80,7 +92,7 @@ namespace Cafe.Web.Controllers
             EmployeeIndexViewModel viewModel = new EmployeeIndexViewModel
             {
                 PageViewModel = pageViewModel,
-                FilterViewModel = new EmployeeFilterViewModel((await _service.GetAllProfessions()).ToList(), profession, firstName, lastName, middleName),
+                FilterViewModel = new EmployeeFilterViewModel((await _professionService.GetAll()).ToList(), profession, firstName, lastName, middleName),
                 SortViewModel = new SortEmployeeViewModel(sortOrder),
                 Items = items
             };
@@ -90,7 +102,7 @@ namespace Cafe.Web.Controllers
 
         public async Task<IActionResult> CreateView()
         {
-            return View("Create", await _service.GetAllProfessions());
+            return View("Create", await _professionService.GetAll());
         }
 
         [HttpGet]
@@ -98,7 +110,7 @@ namespace Cafe.Web.Controllers
         public async Task<IActionResult> UpdateView(int id)
         {
             var employee = await _service.GetEmployeeById(id);
-            var viewModel = new EmployeeUpdateViewModel(employee, await _service.GetAllProfessions());
+            var viewModel = new EmployeeUpdateViewModel(employee, await _professionService.GetAll());
             return View("Update", viewModel);
         }
 
@@ -106,8 +118,17 @@ namespace Cafe.Web.Controllers
         [Route("Employees/Update/{id}")]
         public async Task<IActionResult> Update(int id, Employee employee, string profession)
         {
-            await _service.Update(id, employee, profession);
-            return RedirectToAction("Index");
+            EmployeeValidator validator = new EmployeeValidator();
+            var result = validator.Validate(employee);
+            if (result.IsValid)
+            {
+                await _service.Update(id, employee, profession);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
+            }
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -117,8 +138,18 @@ namespace Cafe.Web.Controllers
         }
         public async Task<IActionResult> Create(Employee employee, string profession)
         {
-            await _service.Add(employee, profession);
-            return RedirectToAction("Index");
+            EmployeeValidator validator = new EmployeeValidator();
+            var result = validator.Validate(employee);
+            if (result.IsValid)
+            {
+                await _service.Add(employee, profession);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
+            }
+
         }
     }
 }

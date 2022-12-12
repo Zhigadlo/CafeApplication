@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{A91B3AE5-1600-4A62-9A86-ACC05C364915}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2A7EED56-06CE-483E-B23F-F5D209F8E265}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cafe.Domain", "Cafe.Domain\Cafe.Domain.csproj", "{29CA4279-739B-47D1-B93B-9A7C36A51684}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cafe.Application", "Cafe.Application\Cafe.Application.csproj", "{AC3CE9F1-7E1F-4EE5-8630-0AB20C0788ED}"
@@ -18,6 +16,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cafe.Persistence", "Cafe.Persistence\Cafe.Persistence.csproj", "{1C7C15B9-6893-4FFB-A794-9C99E387B944}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cafe.Web", "Cafe.Web\Cafe.Web.csproj", "{12510116-E918-4DBD-BC96-B647EC2DAB01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryForClassDiagram", "LibraryForClassDiagram\LibraryForClassDiagram.csproj", "{6F485100-C014-41AD-91D8-6541EC022F32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +41,10 @@ Global
 		{12510116-E918-4DBD-BC96-B647EC2DAB01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12510116-E918-4DBD-BC96-B647EC2DAB01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12510116-E918-4DBD-BC96-B647EC2DAB01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F485100-C014-41AD-91D8-6541EC022F32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F485100-C014-41AD-91D8-6541EC022F32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F485100-C014-41AD-91D8-6541EC022F32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F485100-C014-41AD-91D8-6541EC022F32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

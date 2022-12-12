@@ -5,7 +5,7 @@
 @using Cafe.Web.Models.IngridientViewModels
 @model IngridientIndexViewModel
 <div>
-    <h2>@Html.ActionLink("add new ingridient", "CreateView", "Ingridients")</h2>
+    <h2>@Html.ActionLink("add new ingridient", "CreateView", "Ingridients", null, new { @class="btn btn-sm btn-dark" })</h2>
 
     <form method="get">
         <label>Name: </label>
@@ -23,7 +23,7 @@
                 sortOrder = Model.SortViewModel.NameSort,
                 name = Model.FilterViewModel.SelectedName,
                 ingridient = Model.FilterViewModel.SelectedIngridient
-                })
+                }, new { @class="btn btn-sm" })
             </th>
             <th></th>
             <th></th>
@@ -32,8 +32,8 @@
         {
             <tr>
                 <td>@item.Name</td>
-                <td>@Html.ActionLink("change", "Update", "Ingridients", new { id=item.Id })</td>
-                <td>@Html.ActionLink("delete", "Delete", "Ingridients", new { id=item.Id })</td>
+                <td>@Html.ActionLink("change", "Update", "Ingridients", new { id=item.Id }, new { @class="btn btn-sm btn-primary" })</td>
+                <td>@Html.ActionLink("delete", "Delete", "Ingridients", new { id=item.Id }, new { @class="btn btn-sm btn-danger" })</td>
             </tr>
         }
     </table>
@@ -42,7 +42,7 @@
         <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
        asp-route-name="@(Model.FilterViewModel.SelectedName)"
-       asp-route-company="@(Model.FilterViewModel.SelectedIngridient)"
+       asp-route-ingridient="@(Model.FilterViewModel.SelectedIngridient)"
        asp-route-sortorder="@(Model.SortViewModel.Current)"
        class="btn btn-outline-dark">
             <i class="glyphicon glyphicon-chevron-left"></i>
@@ -54,7 +54,7 @@
         <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
        asp-route-name="@(Model.FilterViewModel.SelectedName)"
-       asp-route-company="@(Model.FilterViewModel.SelectedIngridient)"
+       asp-route-ingridient="@(Model.FilterViewModel.SelectedIngridient)"
        asp-route-sortorder="@(Model.SortViewModel.Current)"
        class="btn btn-outline-dark">
             Forward

@@ -4,7 +4,7 @@
 @using Cafe.Web.Models.EmployeeViewModels
 @model EmployeeIndexViewModel
 <div>
-    <h2>@Html.ActionLink("add new employee", "CreateView", "Employees")</h2>
+    <h2>@Html.ActionLink("add new employee", "CreateView", "Employees", null, new { @class="btn btn-sm btn-dark" })</h2>
     <form method="get">
         <label>First name: </label>
         <input name="firstName" value="@Model.FilterViewModel.SelectedFirstName" />
@@ -27,7 +27,7 @@
                 firstName = Model.FilterViewModel.SelectedFirstName,
                 lastName = Model.FilterViewModel.SelectedLastName,
                 middleName = Model.FilterViewModel.SelectedMiddleName,
-                profession = Model.FilterViewModel.SelectedProfession })
+                profession = Model.FilterViewModel.SelectedProfession }, new { @class="btn btn-sm" })
             </th>
             <th>
                 @Html.ActionLink("Last name", "Index", "Employees", new {
@@ -35,7 +35,7 @@
                 firstName = Model.FilterViewModel.SelectedFirstName,
                 lastName = Model.FilterViewModel.SelectedLastName,
                 middleName = Model.FilterViewModel.SelectedMiddleName,
-                profession = Model.FilterViewModel.SelectedProfession })
+                profession = Model.FilterViewModel.SelectedProfession }, new { @class="btn btn-sm" })
             </th>
             <th>
                 @Html.ActionLink("Middle name", "Index", "Employees", new {
@@ -43,7 +43,7 @@
                 firstName = Model.FilterViewModel.SelectedFirstName,
                 lastName = Model.FilterViewModel.SelectedLastName,
                 middleName = Model.FilterViewModel.SelectedMiddleName,
-                profession = Model.FilterViewModel.SelectedProfession })
+                profession = Model.FilterViewModel.SelectedProfession }, new { @class="btn btn-sm" })
             </th>
             <th>
                 @Html.ActionLink("Age", "Index", "Employees", new {
@@ -51,7 +51,7 @@
                 firstName = Model.FilterViewModel.SelectedFirstName,
                 lastName = Model.FilterViewModel.SelectedLastName,
                 middleName = Model.FilterViewModel.SelectedMiddleName,
-                profession = Model.FilterViewModel.SelectedProfession })
+                profession = Model.FilterViewModel.SelectedProfession }, new { @class="btn btn-sm" })
             </th>
             <th>
                 @Html.ActionLink("Education", "Index", "Employees", new {
@@ -59,7 +59,7 @@
                 firstName = Model.FilterViewModel.SelectedFirstName,
                 lastName = Model.FilterViewModel.SelectedLastName,
                 middleName = Model.FilterViewModel.SelectedMiddleName,
-                profession = Model.FilterViewModel.SelectedProfession })
+                profession = Model.FilterViewModel.SelectedProfession }, new { @class="btn btn-sm" })
             </th>
             <th>
                 @Html.ActionLink("Profession", "Index", "Employees", new {
@@ -67,7 +67,7 @@
                 firstName = Model.FilterViewModel.SelectedFirstName,
                 lastName = Model.FilterViewModel.SelectedLastName,
                 middleName = Model.FilterViewModel.SelectedMiddleName,
-                profession = Model.FilterViewModel.SelectedProfession })
+                profession = Model.FilterViewModel.SelectedProfession }, new { @class="btn btn-sm" })
             </th>
             <th></th>
             <th></th>
@@ -81,8 +81,8 @@
                 <td>@item.Age</td>
                 <td>@item.Education</td>
                 <td>@item.Profession.Name</td>
-                <td>@Html.ActionLink("change", "Update", "Employees", new { id=item.Id })</td>
-                <td>@Html.ActionLink("delete", "Delete", "Employees", new { id=item.Id })</td>
+                <td>@Html.ActionLink("change", "Update", "Employees", new { id=item.Id }, new { @class="btn btn-sm btn-primary" })</td>
+                <td>@Html.ActionLink("delete", "Delete", "Employees", new { id=item.Id }, new { @class="btn btn-sm btn-danger" })</td>
             </tr>
         }
     </table>

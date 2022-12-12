@@ -17,6 +17,7 @@ namespace Cafe.Persistence
             Database.EnsureCreated();
         }
 
+
         public DbSet<Dish> Dishes { get; set; } = null!;
         public DbSet<Employee> Employees { get; set; } = null!;
         public DbSet<Ingridient> Ingridients { get; set; } = null!;

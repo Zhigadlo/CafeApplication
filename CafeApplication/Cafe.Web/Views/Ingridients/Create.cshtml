@@ -1,14 +1,29 @@
 ﻿@{
     ViewData["Title"] = "Ingridient create";
 }
-@using (Html.BeginForm("Create", "Ingridients"))
+
+
+@using (Html.BeginForm("Create", "Ingridients", FormMethod.Post, new { id="addForm"}))
 {
     <h3>New ingridient adding</h3>
     <p>
         <label>Name</label><br />
-        <input type="text" name="name" required />
+        <input type="text" name="Name" required />
     </p>
     <p>
         <input type="submit" value="Create" />
     </p>
 }
+
+<script>
+    $("#addForm").validate({
+        rules:{
+            Name: {
+                required: true
+            }
+        },
+        messages: {
+            Name: "<h5 class=\"text-danger\">Enter name</h5>"
+        }
+    })
+</script>

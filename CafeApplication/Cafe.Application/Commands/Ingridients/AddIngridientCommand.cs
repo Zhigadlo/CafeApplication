@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Cafe.Application.Commands.Ingridients
 {
-    public record AddIngridientCommand(string Name) : IRequest<Ingridient>;
+    public record AddIngridientCommand(Ingridient Ingridient) : IRequest<Ingridient>;
 }

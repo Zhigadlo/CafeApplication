@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Provider list";
+}
+@using Cafe.Domain
+@using Cafe.Web.Models.ProviderViewModels
+@model ProviderIndexViewModel
+<div>
+    <h2>@Html.ActionLink("add new provider", "CreateView", "Providers", null, new { @class="btn btn-sm btn-dark" })</h2>
+
+    <form method="get">
+        <label>Name: </label>
+        <input name="name" value="@Model.FilterViewModel.SelectedName" />
+
+        <input type="submit" value="Filter" class="btn btn-outline-dark" />
+    </form>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Name", "Index", "Providers", new {
+                sortOrder = Model.SortViewModel.NameState,
+                name = Model.FilterViewModel.SelectedName
+                }, new { @class="btn btn-sm" })
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@Html.ActionLink("change", "Update", "Providers", new { id=item.Id }, new { @class="btn btn-sm btn-primary" })</td>
+                <td>@Html.ActionLink("delete", "Delete", "Providers", new { id=item.Id }, new { @class="btn btn-sm btn-danger" })</td>
+            </tr>
+        }
+    </table>
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+       asp-route-sortorder="@(Model.SortViewModel.Current)"
+       class="btn btn-outline-dark">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Back
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+       asp-route-sortorder="@(Model.SortViewModel.Current)"
+       class="btn btn-outline-dark">
+            Forward
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+</div>
+Footer
+© 2022 GitHub, Inc.

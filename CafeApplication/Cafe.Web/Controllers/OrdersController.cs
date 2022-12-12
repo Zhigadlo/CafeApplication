@@ -1,6 +1,7 @@
 ﻿using Cafe.Domain;
 using Cafe.Web.Models;
 using Cafe.Web.Models.OrderViewModels;
+using Cafe.Web.Models.Validators;
 using Cafe.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,16 +9,21 @@ namespace Cafe.Web.Controllers
 {
     public class OrdersController : BaseController<OrderService>
     {
-        public OrdersController(OrderService service) : base(service) { }
-
-        public async Task<IActionResult> Index(string name, int page = 1, OrderSortState sortOrder = OrderSortState.OrderDateAsc)
+        private DishService _dishService;
+        private EmployeeService _employeeService;
+        public OrdersController(OrderService orderService, DishService dishService, EmployeeService employeeService) : base(orderService)
         {
-            IEnumerable<Order> orders = await _service.GetAllOrders();
+            _dishService = dishService;
+            _employeeService = employeeService;
+        }
 
-            if (!String.IsNullOrEmpty(name))
-            {
-                orders = orders.Where(x => x.CustomerName.Contains(name));
-            }
+        public async Task<IActionResult> Index(int page = 1, OrderSortState sortOrder = OrderSortState.OrderDateAsc)
+        {
+            IEnumerable<Order> orders = await _service.GetAll();
+
+            string name = GetStringFromSession(HttpContext, "customername", "name");
+            HttpContext.Session.SetString("customername", name);
+            orders = orders.Where(x => x.CustomerName.ToLower().Contains(name.ToLower()));
 
             switch (sortOrder)
             {
@@ -68,13 +74,22 @@ namespace Cafe.Web.Controllers
         }
         public async Task<IActionResult> CreateView()
         {
-            return View("Create", new CreateOrderViewModel(await _service.GetAllDishes(), await _service.GetAllEmployees()));
+            return View("Create", new CreateOrderViewModel(await _dishService.GetAll(), (await _employeeService.GetAll()).Where(e => e.Profession.Name.ToLower() == "waiter")));
         }
 
-        public async Task<IActionResult> Create(string customerName, DateTime date, string phoneNumber, int paymentMethod, int employee, int[] dishIds, int[] count)
+        public async Task<IActionResult> Create(Order order, int employee, int[] dishIds, int[] count)
         {
-            await _service.Create(customerName, date, phoneNumber, paymentMethod, employee, dishIds, count);
-            return RedirectToAction("Index");
+            OrderValidator validator = new OrderValidator();
+            var result = validator.Validate(order);
+            if (result.IsValid)
+            {
+                await _service.Create(order, employee, dishIds, count);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
+            }
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -87,16 +102,24 @@ namespace Cafe.Web.Controllers
         [Route("Orders/Update/{id}")]
         public async Task<IActionResult> UpdateView(int id)
         {
-            return View("Update", new UpdateOrderViewModel(await _service.GetOrderById(id), await _service.GetAllEmployees(), await _service.GetAllDishes()));
+            return View("Update", new UpdateOrderViewModel(await _service.GetOrderById(id), await _employeeService.GetAll(), await _dishService.GetAll()));
         }
 
         [HttpPost]
         [Route("Orders/Update/{id}")]
-        public async Task<IActionResult> Update(int id, string customerName, DateTime date, string phoneNumber, int paymentMethod,
-                                                int isComplete, int employee, int[] dishIds, int[] count)
+        public async Task<IActionResult> Update(int id, Order order, int employee, int[] dishIds, int[] count)
         {
-            await _service.Update(id, customerName, date, phoneNumber, paymentMethod, isComplete, employee, dishIds, count);
-            return RedirectToAction("Index");
+            OrderValidator validator = new OrderValidator();
+            var result = validator.Validate(order);
+            if (result.IsValid)
+            {
+                await _service.Update(id, order, employee, dishIds, count);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home", new { errors = result.Errors.Select(e => e.ErrorMessage).ToArray() });
+            }
         }
     }
 }

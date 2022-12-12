@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Ingridient at warehouse update";
 }
-@using (Html.BeginForm("UpdateView", "Warehouses", FormMethod.Post))
+@using (Html.BeginForm("UpdateView", "Warehouses", FormMethod.Post, new { id = "updateForm"}))
 {
     <h3>Ingridient at warehouse updating</h3>
     <p>
@@ -35,3 +35,28 @@
     </p>
 }
 
+<script>
+    $("#updateForm").validate({
+        rules: {
+            Weight: {
+                required: true,
+                min: 1
+            },
+            Cost: {
+                required: true
+            },
+            ReleaseDate: {
+                required: true
+            },
+            StorageLife: {
+                required: true
+            }
+        },
+        messages: {
+            Weight: "<h5 class=\"text-danger\">Enter weight more than 0</h5>",
+            Cost: "<h5 class=\"text-danger\">Enter cost</h5>",
+            RealeseDate: "<h5 class=\"text-danger\">Enter release date</h5>",
+            StorageLife: "<h5 class=\"text-danget\">Enter storage life</h5>"
+        }
+    })
+</script>

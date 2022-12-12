@@ -4,20 +4,20 @@
 @{
     ViewData["Title"] = "Dish update";
 }
-@using (Html.BeginForm("UpdateView", "Dishes", FormMethod.Post))
+@using (Html.BeginForm("UpdateView", "Dishes", FormMethod.Post, new { id="updateForm" }))
 {
     <h3>Dish updating</h3>
     <p>
         <label>Name</label><br />
-        <input type="text" name="name" value="@Model.Dish.Name" required />
+        <input type="text" name="Name" value="@Model.Dish.Name" required />
     </p>
     <p>
         <label>Cost</label><br />
-        <input type="number" name="cost" value="@Model.Dish.Cost" required />
+        <input type="number" name="Cost" value="@Model.Dish.Cost" required />
     </p>
     <p>
         <label>CookingTime</label><br />
-        <input type="number" name="cookingTime" value="@Model.Dish.CookingTime" required />
+        <input type="number" name="CookingTime" value="@Model.Dish.CookingTime" required />
     </p>
     <p>
         <label>Ingridients</label><br />
@@ -44,3 +44,26 @@
         <input type="submit" value="Update" />
     </p>
 }
+
+<script>
+    $("#updateForm").validate({
+        rules: {
+            Name: {
+                required: true
+            },
+            Cost: {
+                required: true,
+                min: 1
+            },
+            CookingTime: {
+                required: true,
+                min: 0
+            }
+        },
+        messages: {
+            Name: "<h5 class=\"text-danger\">Enter name</h5>",
+            Cost: "<h5 class=\"text-danger\">Enter cost</h5>",
+            CookingTime: "<h5 class=\"text-danger\">Enter cooking time</h5>"
+        }
+    })
+</script>

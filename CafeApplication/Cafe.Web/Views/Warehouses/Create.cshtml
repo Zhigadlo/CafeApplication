@@ -3,7 +3,7 @@
 }
 @using Cafe.Web.Models.WarehouseViewModels;
 @model CreateWarehouseViewModel;
-@using (Html.BeginForm("Create", "Warehouses"))
+@using (Html.BeginForm("Create", "Warehouses", FormMethod.Post, new { id="addForm"}))
 {
     <h3>Adding new ingridient to warehouse</h3>
     <p>
@@ -34,3 +34,29 @@
         <input type="submit" value="Create" />
     </p>
 }
+
+<script>
+    $("#addForm").validate({
+        rules: {
+            Weight: {
+                required: true,
+                min: 1
+            },
+            Cost: {
+                required: true
+            },
+            ReleaseDate: {
+                required: true
+            },
+            StorageLife: {
+                required: true
+            }
+        },
+        messages: {
+            Weight: "<h5 class=\"text-danger\">Enter weight more than 0</h5>",
+            Cost: "<h5 class=\"text-danger\">Enter cost</h5>",
+            RealeseDate: "<h5 class=\"text-danger\">Enter release date</h5>",
+            StorageLife: "<h5 class=\"text-danget\">Enter storage life</h5>"
+        }
+    })
+</script>
