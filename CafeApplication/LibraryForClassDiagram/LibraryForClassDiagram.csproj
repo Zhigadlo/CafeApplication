@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cafe.Application\Cafe.Application.csproj" />
+    <ProjectReference Include="..\Cafe.Domain\Cafe.Domain.csproj" />
+    <ProjectReference Include="..\Cafe.Persistence\Cafe.Persistence.csproj" />
+    <ProjectReference Include="..\Cafe.Web\Cafe.Web.csproj" />
+  </ItemGroup>
+
+</Project>
